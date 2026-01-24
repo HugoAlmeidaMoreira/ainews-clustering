@@ -1,8 +1,12 @@
-
 import os
+import sys
 import glob
 import hashlib
 from datetime import datetime
+
+# Add project root to path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../")))
+
 from src.modules.database import get_datascience_db
 from sqlalchemy import text
 
@@ -81,5 +85,16 @@ def apply_sql_files(base_dir: str):
                 break
 
 if __name__ == "__main__":
-    base_sql_dir = "src/database/sql"
+    # Path relative to project root
+    base_sql_dir = "src/services/postgres/sql"
+    
+    # Ensure we run from project root
+    if not os.path.exists(base_sql_dir):
+        # Fallback if running from src/services/postgres
+        if os.path.exists("sql"):
+             base_sql_dir = "sql"
+        else:
+             print(f"Directory {base_sql_dir} not found. Run from project root.")
+             exit(1)
+             
     apply_sql_files(base_sql_dir)

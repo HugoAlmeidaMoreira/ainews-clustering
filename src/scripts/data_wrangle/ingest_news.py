@@ -12,7 +12,9 @@ import sys
 from pathlib import Path
 
 # Add project root to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+# Current: src/scripts/data_wrangle/ingest_news.py
+# Root: ../../../
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
 import os
 
