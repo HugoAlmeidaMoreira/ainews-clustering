@@ -3,7 +3,7 @@ name = "ainews-clustering"
 version = "0.1.0"
 description = "News dataset exploration with clustering"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
     "pandas>=2.0.0",
     "pyarrow>=14.0.0",
@@ -12,4 +12,7 @@ dependencies = [
     "sqlalchemy>=2.0.0",
     "psycopg2-binary>=2.9.0",
     "python-dotenv>=1.0.0",
+    "numba>=0.60",
+    "llvmlite>=0.43",
+    "renumics-spotlight>=1.7.0",
 ]

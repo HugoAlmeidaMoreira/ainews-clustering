@@ -256,7 +256,9 @@ class DatabaseManager:
             ...     params={"cat": "technology"}
             ... )
         """
-        return pd.read_sql(query, self.engine, params=params, **kwargs)
+        if params:
+            return pd.read_sql(text(query), self.engine, params=params, **kwargs)
+        return pd.read_sql(query, self.engine, **kwargs)
 
     def to_sql(
         self,
