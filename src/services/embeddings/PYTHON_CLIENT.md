@@ -1,56 +1,62 @@
 # Python Client for Embeddings (BGE-M3)
 
-This guide shows how to interact with the **Embeddings (TEI)** service using Python for data science and RAG workflows.
+This guide shows how to interact with the **Embeddings (TEI)** service using the project's internal client for data science and RAG workflows.
 
 ## Prerequisites
 
-```bash
-pip install requests psycopg2-binary pgvector
-```
+Ensure you have the environment variables set in `.env`.
 
 ## 1. Basic Embedding Generation
 
+Using the `EmbeddingsClient`:
+
 ```python
-import requests
+from services.embeddings import get_embeddings_client
 
-def get_embedding(text, endpoint="https://embeddings.vectorized.pt/embed"):
-    response = requests.post(endpoint, json={"inputs": text})
-    response.raise_for_status()
-    # TEI usually returns a list [vec] for single input, or list of lists for multiple
-    return response.json()[0]
-
+client = get_embeddings_client()
 text = "O futuro da infraestrutura é agentic."
-vector = get_embedding(text)
+vector = client.generate(text)
+
+# Handle potential list-of-lists response if necessary
+if isinstance(vector, list) and len(vector) > 0 and isinstance(vector[0], list):
+    vector = vector[0]
+
 print(f"Generated vector with {len(vector)} dimensions.")
 ```
 
 ## 2. Integration with PostgreSQL (pgvector)
 
-Ensure you have a Cloudflare Tunnel or direct connection to Postgres.
+Ensure you have a Cloudflare Tunnel active if running locally.
 
 ```python
-import psycopg2
-from pgvector.psycopg2 import register_vector
+from services.postgres import get_postgres_client
+from services.embeddings import get_embeddings_client
 
-# Connection details (adjust if using tunnel on localhost)
-DB_CONFIG = "postgresql://postgres:pass@localhost:5432/datascience"
+# 1. Generate Embedding
+emb_client = get_embeddings_client()
+text = "Armazenando pensamentos vectoriais."
+vector = emb_client.generate(text)
 
-def store_thought(text, vector):
-    conn = psycopg2.connect(DB_CONFIG)
-    register_vector(conn)
-    cur = conn.cursor()
+# 2. Store in Postgres (datascience db)
+with get_postgres_client(database="datascience") as db:
+    # Ensure pgvector is enabled
+    db.execute("CREATE EXTENSION IF NOT EXISTS vector")
     
-    # 1. Setup (do once)
-    cur.execute("CREATE EXTENSION IF NOT EXISTS vector")
-    cur.execute("CREATE TABLE IF NOT EXISTS thoughts (id serial PRIMARY KEY, content text, vec vector(1024))")
+    # Create table for 1024-dim vectors (BGE-M3)
+    db.execute("""
+        CREATE TABLE IF NOT EXISTS thoughts (
+            id serial PRIMARY KEY, 
+            content text, 
+            vec vector(1024)
+        )
+    """)
     
-    # 2. Insert
-    cur.execute("INSERT INTO thoughts (content, vec) VALUES (%s, %s)", (text, vector))
-    conn.commit()
-    cur.close()
-    conn.close()
+    # Insert (pgvector accepts list as string or via specialized adapters)
+    db.execute(
+        "INSERT INTO thoughts (content, vec) VALUES (:content, :vec)",
+        params={"content": text, "vec": str(vector)}
+    )
 
-store_thought(text, vector)
 print("✅ Vectorized thought stored in Postgres.")
 ```
 
@@ -58,23 +64,21 @@ print("✅ Vectorized thought stored in Postgres.")
 
 ```python
 def semantic_search(query_text):
-    query_vec = get_embedding(query_text)
+    emb_client = get_embeddings_client()
+    query_vec = emb_client.generate(query_text)
     
-    conn = psycopg2.connect(DB_CONFIG)
-    register_vector(conn)
-    cur = conn.cursor()
-    
-    # Use <=> for cosine similarity
-    cur.execute("""
-        SELECT content, 1 - (vec <=> %s) as similarity
-        FROM thoughts
-        ORDER BY vec <=> %s
-        LIMIT 5
-    """, (query_vec, query_vec))
-    
-    for content, score in cur.readlines():
-        print(f"[{score:.4f}] {content}")
+    with get_postgres_client(database="datascience") as db:
+        # Use <=> for cosine similarity
+        df = db.read_sql("""
+            SELECT content, 1 - (vec <=> :query_vec) as similarity
+            FROM thoughts
+            ORDER BY vec <=> :query_vec
+            LIMIT 5
+        """, params={"query_vec": str(query_vec)})
         
-    cur.close()
-    conn.close()
+        for _, row in df.iterrows():
+            print(f"[{row['similarity']:.4f}] {row['content']}")
+
+semantic_search("inteligência artificial")
 ```
+

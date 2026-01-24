@@ -32,6 +32,18 @@ Dashboard overview of the vLLM service (service health, loaded model, pod status
 ./vllm-status.sh
 ```
 
+### Python Module (`client.py`)
+
+A Python client for programmatic access to vLLM.
+
+```python
+from services.vllm import get_vllm_client
+
+client = get_vllm_client()
+joke = client.get_joke("programming")
+print(joke)
+```
+
 ## Shell Aliases (Quick Access)
 
 Add these to your `~/.bashrc`:

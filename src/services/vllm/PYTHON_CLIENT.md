@@ -26,21 +26,24 @@ VLLM_USER = os.getenv("VLLM_USER", "admin")
 VLLM_PASS = os.getenv("VLLM_PASSWORD", "your-password-here")
 
 # Initialize Client
-# Note: api_key is required by the library but ignored by vLLM (we use Basic Auth headers)
+# Note: api_key is required by the library but ignored by vLLM
+# Note: User-Agent spoofing may be required if Cloudflare blocks default library headers
 client = OpenAI(
     base_url=VLLM_HOST,
     api_key="EMPTY",
     default_headers={
-        "Authorization": f"Basic {base64.b64encode(f'{VLLM_USER}:{VLLM_PASS}'.encode()).decode()}"
+        "Authorization": f"Basic {base64.b64encode(f'{VLLM_USER}:{VLLM_PASS}'.encode()).decode()}",
+        "User-Agent": "curl/8.5.0"
     }
 )
 ```
 
-**Alternative**: If using standard Basic Auth URL syntax:
+**Alternative**: If using standard Basic Auth URL syntax (ensure headers still include User-Agent if Cloudflare is active):
 ```python
 client = OpenAI(
     base_url=f"https://{VLLM_USER}:{VLLM_PASS}@vllm.vectorized.pt/v1",
-    api_key="EMPTY"
+    api_key="EMPTY",
+    default_headers={"User-Agent": "curl/8.5.0"}
 )
 ```
 

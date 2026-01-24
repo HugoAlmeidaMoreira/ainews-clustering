@@ -15,4 +15,5 @@ dependencies = [
     "numba>=0.60",
     "llvmlite>=0.43",
     "renumics-spotlight>=1.7.0",
+    "openai>=2.15.0",
 ]
