@@ -64,5 +64,12 @@ case "${1:-status}" in
     stop)   stop_tunnel ;;
     status) status_tunnel ;;
     restart) stop_tunnel; sleep 1; start_tunnel ;;
-    *)      echo "Usage: $0 {start|stop|status|restart}" ;;
+    toggle)
+        if status_tunnel | grep -q "ACTIVE"; then
+            stop_tunnel
+        else
+            start_tunnel
+        fi
+        ;;
+    *)      echo "Usage: $0 {start|stop|status|restart|toggle}" ;;
 esac

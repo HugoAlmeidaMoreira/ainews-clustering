@@ -12,9 +12,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 # Configuration
-TUNNEL_HOSTNAME="postgres.hugomoreira.eu"
-TUNNEL_PORT="5432"
-TUNNEL_CMD="cloudflared access tcp --hostname $TUNNEL_HOSTNAME --url localhost:$TUNNEL_PORT"
+# (Now handled via tunnel.sh)
 
 echo "╔══════════════════════════════════════════════════════════════╗"
 echo "║             🐘 POSTGRESQL STATUS                             ║"
@@ -39,34 +37,9 @@ except Exception as e:
 "
 }
 
-# 1. Check if Tunnel is needed (are we local?)
-# Simple heuristic: if we can't connect internally, we might be local.
-# But usually we assume local if we are running this script manually.
-
-echo -e "${BLUE}1. Checking Tunnel...${NC}"
-
-if pgrep -f "$TUNNEL_HOSTNAME" > /dev/null; then
-    echo -e "   ✅ Tunnel is ALREADY RUNNING."
-    TUNNEL_ALREADY_RUNNING=true
-else
-    echo -e "   ⚠️  Tunnel NOT found."
-    echo -e "   🚀 Starting temporary tunnel..."
-    
-    # Start tunnel in background
-    $TUNNEL_CMD > /dev/null 2>&1 &
-    TUNNEL_PID=$!
-    TUNNEL_ALREADY_RUNNING=false
-    
-    # Wait for tunnel to establish
-    sleep 3
-    
-    if kill -0 $TUNNEL_PID 2>/dev/null; then
-         echo -e "   ✅ Tunnel started (PID: $TUNNEL_PID)"
-    else
-         echo -e "   ❌ Failed to start tunnel. Is cloudflared installed and authenticated?"
-         exit 1
-    fi
-fi
+# 1. Check/Start Tunnel
+echo -e "${BLUE}1. Ensuring Tunnel is running...${NC}"
+"$(dirname "$0")/tunnel.sh" start
 
 echo ""
 echo -e "${BLUE}2. Database Connectivity...${NC}"
@@ -78,12 +51,4 @@ if check_db_connection; then
 else
     echo ""
     echo -e "   ${RED}System is UNHEALTHY${NC}"
-fi
-
-# Cleanup
-if [ "$TUNNEL_ALREADY_RUNNING" = false ]; then
-    echo ""
-    echo -e "${BLUE}3. Cleanup...${NC}"
-    echo "   Stopping temporary tunnel..."
-    kill $TUNNEL_PID
 fi
