@@ -15,7 +15,8 @@ from src.modules.database import get_datascience_db
 # Configuration
 BATCH_SIZE = 32  # Concurrent requests to vLLM
 MAX_CHARS_CONTENT = 10000 # Limit text to focus on the meat of the news
-MODEL_NAME = "Qwen/Qwen2.5-7B-Instruct"
+# MODEL_NAME = "Qwen/Qwen2.5-7B-Instruct"
+MODEL_NAME = "mesolitica/Qwen2.5-72B-Instruct-FP8"
 
 # Semantic Axes Definitions (Mapped to Sliders)
 AXES = [

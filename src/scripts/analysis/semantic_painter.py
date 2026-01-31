@@ -75,6 +75,8 @@ def get_cluster_representatives(cluster_id: int, method: str, limit: int = 10) -
         df_arts = db.read_sql(query_arts)
         
         # Fetch Average Semantics for the WHOLE cluster
+        # NOTE: We specify the model_name to avoid mixing scores from different models (ADR-010)
+        target_model = "mesolitica/Qwen2.5-72B-Instruct-FP8"
         query_sem = f"""
             SELECT 
                 AVG(s.s_opp_risk) as "Opp_vs_Risk",
@@ -87,8 +89,15 @@ def get_cluster_representatives(cluster_id: int, method: str, limit: int = 10) -
             FROM ai_news_topography t
             JOIN ai_news_semantics s ON t.guid = s.guid
             WHERE t.{method} = {cluster_id}
+              AND s.model_name = '{target_model}'
         """
         df_sem = db.read_sql(query_sem)
+        
+        # Fallback to 7B if 72B coverage is not complete yet
+        if df_sem.empty or df_sem.iloc[0].isna().all():
+            fallback_model = "Qwen/Qwen2.5-7B-Instruct"
+            query_sem_fallback = query_sem.replace(target_model, fallback_model)
+            df_sem = db.read_sql(query_sem_fallback)
         
     avg_scores = df_sem.iloc[0].to_dict() if not df_sem.empty else {}
     avg_scores = {k: (v if v is not None else 0.5) for k, v in avg_scores.items()}

@@ -26,7 +26,7 @@ Following the "Physics of Public Attention" framework (see `notes/paper-explorat
 To visualize how the "Center of Mass" of Portuguese media discourse shifts under regulatory shocks (like the AI Act), we need to project news articles onto intelligible semantic axes (Sliders).
 
 ## Constraints & Assumptions
-* **Model**: **Qwen2.5-7B-Instruct** running on **NVIDIA Blackwell**.
+* **Models**: **Qwen2.5-72B-Instruct** (High-Fidelity) and **Qwen2.5-7B-Instruct** (Baseline).
 * **Metric**: Zero-shot probabilistic scoring (Logit Lens) for each axis.
 * **Weighting**: All semantic scores must be compatible with **AAV (Advertising Value Equivalency)** to calculate the **Media Barycenter**.
 
