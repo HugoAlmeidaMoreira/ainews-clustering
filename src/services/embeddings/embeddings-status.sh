@@ -34,8 +34,9 @@ echo ""
 # 2. Kubernetes Pod Status
 echo "🐳 POD STATUS"
 echo "────────────────────────────────────────"
-pod_info=$(kubectl get pods -n cognition -l app=embeddings --no-headers 2>/dev/null | \
-    sort -k3,3r | \
+# Get the youngest Running pod
+pod_info=$(kubectl get pods -n cognition -l app=embeddings --field-selector=status.phase=Running --no-headers 2>/dev/null | \
+    sort -k5,5 | \
     head -1)
 
 if [ -n "$pod_info" ]; then

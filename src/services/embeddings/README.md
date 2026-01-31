@@ -1,6 +1,6 @@
 # Embeddings Service Scripts
 
-Management scripts for the **Text Embeddings Inference (TEI)** engine running the **BGE-M3** model.
+Management scripts for the **Embeddings** service running on **vLLM** with the **BGE-M3** model (OpenAI-compatible API).
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ Management scripts for the **Text Embeddings Inference (TEI)** engine running th
 
 ### `embeddings-client.sh`
 
-Interact with the TEI API via shell.
+Interact with the vLLM API via shell.
 
 ```bash
 ./embeddings-client.sh <command> [arguments]
@@ -20,9 +20,8 @@ Interact with the TEI API via shell.
 
 | Command | Description | Example |
 |---------|-------------|---------|
-| `health` | Check service health | `./embeddings-client.sh health` |
+| `info` | Check service health and models | `./embeddings-client.sh info` |
 | `embed <text>` | Generate embeddings for text | `./embeddings-client.sh embed "Hello world"` |
-| `info` | Show model information | `./embeddings-client.sh info` |
 
 ### `embeddings-status.sh`
 
@@ -34,7 +33,7 @@ Dashboard overview of the embeddings service (service health, pod status, node a
 
 ### Python Module (`client.py`)
 
-A Python client for programmatic access to the embeddings service.
+A Python client for programmatic access to the embeddings service (wrapper around OpenAI-compatible API).
 
 ```python
 from services.embeddings import get_embeddings_client
@@ -59,7 +58,8 @@ alias emb-gen='/home/hugo/git/personal/control-plane-talos/services/embeddings/e
 ┌─────────────────────────────────────────────────────────────┐
 │  Client (Local/CI/Cluster)                                   │
 └───────────────────────────┬─────────────────────────────────┘
-                            │ REST API (JSON)
+                            │ REST API (OpenAI Compatible)
+                            │ POST /v1/embeddings
                             ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  embeddings-client.sh / Python Client                       │
@@ -68,8 +68,8 @@ alias emb-gen='/home/hugo/git/personal/control-plane-talos/services/embeddings/e
                             │ Cloudflare Tunnel / Ingress
                             ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  talos-2wq-80j (Worker Node)                                │
-│  TEI Pod (BGE-M3) → Optimized Inference Engine               │
+│  talos-node (GPU Worker)                                    │
+│  vLLM Pod (BGE-M3) → Optimized Inference Engine on Blackwell │
 └─────────────────────────────────────────────────────────────┘
 ```
 

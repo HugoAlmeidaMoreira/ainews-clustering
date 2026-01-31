@@ -31,14 +31,14 @@ api_call() {
 # Commands
 
 cmd_info() {
-    echo -e "${BLUE}Model Info (TEI):${NC}"
-    api_call "/" | python3 -c "
+    echo -e "${BLUE}Model Info (OpenAI API):${NC}"
+    api_call "/v1/models" | python3 -c "
 import sys, json
 try:
     d = json.load(sys.stdin)
     print(json.dumps(d, indent=2))
 except:
-    print('  (Error parsing response or root endpoint is just empty)')
+    print('  (Error parsing response)')
 "
 }
 
@@ -47,23 +47,24 @@ cmd_embed() {
     
     echo -e "${BLUE}Generating embedding for: ${NC}\"$msg\""
     
+    # Matches the Qwen model ID loaded in vLLM
+    MODEL="BAAI/bge-m3"
+    
     payload=$(cat <<EOF
 {
-  "inputs": "$msg"
+  "model": "$MODEL",
+  "input": "$msg"
 }
 EOF
 )
-    api_call "/embed" "$payload" | python3 -c "
+    api_call "/v1/embeddings" "$payload" | python3 -c "
 import sys, json
 try:
     d = json.load(sys.stdin)
-    # Most TEI implementations return a list of lists or just a list
-    if isinstance(d, list):
-        if len(d) > 0 and isinstance(d[0], list):
-             vec = d[0]
-        else:
-             vec = d
+    if 'data' in d and len(d['data']) > 0:
+        vec = d['data'][0]['embedding']
         print(f\"  Vector (first 5 dims): {vec[:5]}... [Length: {len(vec)}]\")
+        print(f\"  Model Used: {d.get('model', 'unknown')}\")
     else:
         print(json.dumps(d, indent=2))
 except Exception as e:
