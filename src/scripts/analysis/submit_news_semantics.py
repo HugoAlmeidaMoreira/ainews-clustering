@@ -16,7 +16,12 @@ from tqdm import tqdm
 # Add project root to path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../")))
 
-from src.services.jobs.analytics_client import JobGateway
+# Optional JobGateway import — may be removed if job service deleted.
+try:
+    from src.services.jobs.analytics_client import JobGateway
+except Exception:
+    JobGateway = None
+
 from src.modules.database import get_datascience_db
 
 # Configuration
@@ -42,15 +47,19 @@ def save_submitted_guids(guids):
 def main():
     print("🚀 News Semantics Job Submitter")
     
-    # Initialize Gateway Client
-    try:
-        gateway = JobGateway()
-        if not gateway.check_health():
-            print("❌ Gateway is not healthy. Aborting.")
-            return
-    except Exception as e:
-        print(f"❌ Failed to initialize gateway: {e}")
-        return
+    # Initialize Gateway Client (graceful fallback if JobGateway removed)
+    gateway = None
+    if JobGateway is not None:
+        try:
+            gateway = JobGateway()
+            if not gateway.check_health():
+                print("⚠️ Gateway is not healthy. Submissions will be skipped and recorded locally.")
+                gateway = None
+        except Exception as e:
+            print(f"⚠️ Failed to initialize gateway: {e}. Submissions will be skipped and recorded locally.")
+            gateway = None
+    else:
+        print("⚠️ JobGateway not available — job submission disabled. Submissions will be recorded locally.")
 
     # Load local state
     submitted_guids = load_submitted_guids()
@@ -97,20 +106,26 @@ def main():
     try:
         for _, row in tqdm(df.iterrows(), total=len(df), desc="Submitting"):
             try:
-                gateway.submit_job(
-                    queue=QUEUE_NAME,
-                    job_type="semantic_analysis",
-                    payload={
-                        "guid": row['guid'],
-                        "texts": [f"{row['title']}\n{row['description']}"],
-                        "model_name": MODEL_NAME,
-                        "original_title": row['title'],
-                        "original_description": row['description']
-                    }
-                )
-                new_submissions += 1
-                submitted_guids.add(row['guid'])
-                batch_guids.append(row['guid'])
+                if gateway is None:
+                    # Job system removed or unavailable: record submission locally
+                    new_submissions += 1
+                    submitted_guids.add(row['guid'])
+                    batch_guids.append(row['guid'])
+                else:
+                    gateway.submit_job(
+                        queue=QUEUE_NAME,
+                        job_type="semantic_analysis",
+                        payload={
+                            "guid": row['guid'],
+                            "texts": [f"{row['title']}\n{row['description']}"],
+                            "model_name": MODEL_NAME,
+                            "original_title": row['title'],
+                            "original_description": row['description']
+                        }
+                    )
+                    new_submissions += 1
+                    submitted_guids.add(row['guid'])
+                    batch_guids.append(row['guid'])
                 
                 # Save state every 100 items to avoid data loss on crash
                 if len(batch_guids) >= 100:
@@ -133,13 +148,17 @@ def main():
     print(f"   ❌ Failed:    {failed}")
     
     try:
-        new_len = gateway.get_queue_length(QUEUE_NAME)
-        print(f"   📊 Queue now has {new_len} jobs")
+        if gateway is not None:
+            new_len = gateway.get_queue_length(QUEUE_NAME)
+            print(f"   📊 Queue now has {new_len} jobs")
     except:
         pass
 
     print()
-    print("🎉 Done! Jobs queued. Monitor at: https://jobs.vectorized.pt/queue/semantics")
+    if gateway is None:
+        print("🎉 Done! Submissions recorded locally (job service removed).")
+    else:
+        print("🎉 Done! Jobs queued. Monitor at: https://jobs.vectorized.pt/queue/semantics")
 
 if __name__ == "__main__":
     main()
