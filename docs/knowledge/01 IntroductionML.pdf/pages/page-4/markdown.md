@@ -1,0 +1,13 @@
+# Artificial Intelligence
+
+## Qualities of intelligence?
+
+- AI with a focus on learning from experience =&gt; machine/deep learning, reinforcement learning ...
+- AI with a focus on rationality =&gt; planning, reasoning, optimization ...
+- AI with a focus on curiosity =&gt; autonomous agents, affective computing, ...
+- AI with a focus on social intelligence =&gt; human-agent interaction, social robots, multi-agent systems...
+
+![img-0.jpeg](img-0.jpeg)
+
+TÉCNICO+
+FORMAÇÃO AVANÇADA

@@ -28,6 +28,7 @@ dependencies = [
     "ray[client]==2.43.0",
     "numpy<2.0.0",
     "redis>=7.1.0",
+    "docling>=2.0.0",
 ]
 
 [build-system]

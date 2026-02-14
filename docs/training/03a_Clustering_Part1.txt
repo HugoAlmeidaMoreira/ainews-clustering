@@ -1,0 +1,984 @@
+
+--- Page 1 ---
+Clustering (1/2)
+Introduction to clustering
+DASH: Data Science e Análise Não Supervisionada
+Rui Henriques, rmch@tecnico.ulisboa.pt 
+Instituto Superior Técnico, Universidade de Lisboa
+--- Page 2 ---
+2
+Outline
+• Introduction to clustering
+• Multivariate similarity metrics
+• Approaches
+• hierarchical
+• density-based
+• From multivariate to complex data structures
+• Evaluation
+• intrinsic metrics
+• extrinsic metrics
+--- Page 3 ---
+3
+Clustering
+Cluster: group of observations
+Cluster analysis: group observations into clusters according to their (dis)similarity: 
+observations in the same cluster are more similar than those in different clusters
+Intercluster 
+distances are 
+maximized
+Intracluster 
+distances are 
+minimized
+--- Page 4 ---
+4
+Motivation
+• Patients with a shared clinical condition:                                                                                  
+How to understand disease? 
+• cancer types, dementia progression, risk groups
+• stratified diagnostics and therapeutics 
+• Customers: how to segment their profile for personalized marketing?
+• Webpages, shopping products, media, documents:                                                           
+how to categorize them for recommendations?
+• Genes, proteins and metabolites with different expression and concentration profile: how to 
+understand their correlated behavior (biological functions)?
+• Students, researchers, professors: how to improve science and education?
+
+--- Page 5 ---
+5
+Motivation
+• ENDS
+• Insight into the underlying structure/regularities of data
+• Preprocessing step for other tasks
+• Supporting prediction by stratifying populations (exercise: how?)
+• Improving efficiency by using clusters as a proxy for observations
+• Many others…
+• Application DOMAINS
+• Information retrieval: document and webpage clustering
+• Marketing: customer groups according to profile and product-receptivity
+• Insurance: policy holders with different average claim costs
+• Medicine: risk groups, personalized medicine
+• Biology: philogenetics, pathways, regulatory modules
+• Others: city-planning, land use, seismic studies, atmospheric conditions
+--- Page 6 ---
+6
+Illustration
+--- Page 7 ---
+7
+Clustering modes
+• Unsupervised (default)
+• cluster observations without knowning their labels
+• Semi-supervised
+• cluster observations when:
+• the labels of some observations may be known or 
+• pairs of observations are known to belong to the same cluster
+• Supervised
+• cluster observations when targets are considered, e.g.:
+• label added as an additional input variable
+• cluster class-conditional observations
+--- Page 8 ---
+8
+Clustering modes
+• Deterministic versus probabilistic cluster stances
+• hard solutions: each observation either belongs or not to a given cluster 
+• soft solutions: each observation has a probability (membership) of belonging 
+to a given cluster
+• fuzzy and model-based clustering
+• Separation of clusters: exclusive versus non-exclusive (overlapping clusters)
+• Complete versus partial (observations may not belong to any cluster)
+• Uniform versus weighted
+• variables can be weighted based on data semantics/domain knowledge
+• observations can be weighted based on relevance criteria
+--- Page 9 ---
+9
+Motivation
+Two major factors impact solutions: distance + approach
+• distance metrics depend on the: 
+• variable domains
+• numeric and ordinal (e.g. Euclidean)
+• nominal (e.g. Hamming)
+• non-iid attributes
+• data structure: tabular, time series, image, spatiotemporal data, events…
+• approach
+• partitioning
+• hierarchical
+• density-based
+• model-based 
+--- Page 10 ---
+10
+Outline
+• Introduction to clustering
+• Multivariate similarity metrics
+• Approaches
+• hierarchical
+• density-based
+• From multivariate to complex data structures
+• Evaluation
+• intrinsic metrics
+• extrinsic metrics
+--- Page 11 ---
+11
+• well-established distances can be applied yet…                                                                      
+   …best distances are generally customized to the problem domain (background knowledge)
+• e.g. demographic dist 𝑖𝑛𝑑1, 𝑖𝑛𝑑2 = 𝑎𝑔𝑒1−𝑎𝑔𝑒2
+20 + 𝟏 𝑟𝑒𝑔𝑖𝑜𝑛1 = 𝑟𝑒𝑔𝑖𝑜𝑛2 × 0.8 + 1 𝑠𝑒𝑥1 = 𝑠𝑒𝑥2 × 1.2 + ⋯
+• apply distance to produce pairwise distance matrices between observations (and/or clusters)
+• similarity matrix = − distance matrix
+Focal point: distances
+A B C D E F
+A 0 0.71 5.66 3.61 4.24 3.20
+B 0.71 0 4.95 2.92 3.54 2.50
+C 5.66 4.95 0 2.24 1.41 2.50
+D 3.61 2.92 2.24 0 1.00 0.50
+E 4.24 3.54 1.41 1.00 0 1.12
+F 3.20 2.50 2.50 0.50 1.12 0
+--- Page 12 ---
+12
+Clustering as a graph-based task
+• Proximity between all data observations defines a weighted graph
+• Nodes are the observations, edges capture their distances
+• Clustering = breaking the graph into connected components
+• Minimize the edge weight between clusters AND maximize the edge weight within clusters 
+• How? Incremental grouping using thresholds
+A B C D E
+A 0 1 2 2 3
+B 1 0 2 4 3
+C 2 2 0 1 5
+D 2 4 1 0 3
+E 3 3 5 3 0 A B C D E
+BA
+E C
+D
+--- Page 13 ---
+13
+A distance function is a metric if the following conditions are met:
+• non-negative
+d(x, y) ≥ 0
+• distance to point itself is zero
+d(x, x) = 0
+• symmetry
+d(x, y) = d(y, x)
+• triangular inequality
+d(x, y)  d(x, z) + d(z, y)
+Distances and metrics
+
+--- Page 14 ---
+14
+Common distance metrics
+(numeric data)
+Minkowski distance
+ Euclidean distance (𝑞 = 2)
+ Manhattan distance (𝑞 = 1)
+𝑑(𝑖, 𝑗) = 𝑎𝑖1 − 𝑎𝑗1
+2
++ 𝑎𝑖2 − 𝑎𝑗2
+2
++. . . + 𝑎𝑖𝑝 − 𝑎𝑗𝑝
+2
+𝐱𝑖 =  (𝑎𝑖1, 𝑎𝑖2, … , 𝑎𝑖𝑝)
+dij = ?
+𝐱𝑗 =  (𝑎𝑗1, 𝑎𝑗2, … , 𝑎𝑗𝑝)
+𝑑(𝑖, 𝑗) = 𝑎𝑖1 − 𝑎𝑗1 + 𝑎𝑖2 − 𝑎𝑗2 +. . . + 𝑎𝑖𝑝 − 𝑎𝑗𝑝
+𝑑(𝑖, 𝑗) =
+𝑞
+𝑎𝑖1 − 𝑎𝑗1
+𝑞
++ 𝑎𝑖2 − 𝑎𝑗2
+𝑞
++. . . + 𝑎𝑖𝑝 − 𝑎𝑗𝑝
+𝑞
+1st dimension 2nd dimension pth dimension
+--- Page 15 ---
+15
+Common distance metrics
+(numeric data)
+2D example
+ x1 = (2,8)
+ x2 = (6,3)
+Euclidean distance
+Manhattan distance
+0 5 1
+0
+5
+1
+0
+4
+5
+X1 = (2,8)
+X2 = (6,3)
+413862)2,1(
+22
+=−+−=d
+93862)2,1( =−+−=d
+--- Page 16 ---
+16
+𝑑∞(𝐱, 𝐲) = lim
+𝑞→∞
+෍
+𝑖=1
+𝑛
+𝑥𝑖 − 𝑦𝑖 𝑞
+ൗ1 𝑞
+= max 𝑥1 − 𝑦1 , 𝑥2 − 𝑦2 , … , 𝑥𝑛 − 𝑦𝑛
+• when q → , the metric highly penalizes maximum attribute errors
+• useful if the worst case must be avoided:
+𝑑∞ (2,8), (6,3) = max 2 − 6 , 8 − 3 = max 4,5 = 5
+Example:
+Chebyshev distance                                             
+(numeric data)
+--- Page 17 ---
+17
+Correlation
+• positive (negative): two variables vary in the same (opposite) way
+• maximum value of 1 (-1) if X and Y are perfectly direct (inverse) correlated
+• recall: Pearson and Spearman coefficients for numeric data
+• how to handle categorical or mixed data?
+• example: gene expression data clustering
+g1 = (1,2,3,4,5)
+g2 = (100,200,300,400,500)
+g3 = (5,4,3,2,1)
+Which genes are similar according to correlation coefficients? 
+--- Page 18 ---
+18
+• number of different attribute values
+• distance of (1011101) and (1001001) is 2
+• distance between (toned) and (roses) is 3 
+Hamming distance
+(binary and categorical data)
+3-bit binary cube 100->011 has distance 3 (red path) 
+010->111 has distance 2 (blue path)
+--- Page 19 ---
+19
+Outline
+• Introduction to clustering
+• Multivariate similarity metrics
+• Approaches
+• hierarchical
+• density-based
+• From multivariate to complex data structures
+• Evaluation
+• intrinsic metrics
+• extrinsic metrics
+--- Page 20 ---
+20
+Approaches
+Partitioning:
+• Create partitions and iteratively update them 
+(e.g. k-means, k-modes, k-medoids)
+Hierarchical: 
+• Create hierarchical decomposition of data points 
+(e.g. Diana, Agnes)
+Density-based: 
+• Group points based on connectivity and density                   
+(e.g. DBSACN, DenClue)
+Model-based: 
+• Data are seen as a mixture of distributions (e.g. EM)
+
+--- Page 21 ---
+21
+Step 0 Step 1 Step 2 Step 3 Step 4
+b
+d
+c
+e
+a
+a b
+d e
+c d e
+a b c d e
+Step 4 Step 3 Step 2 Step 1 Step 0
+agglomerative
+(e.g. AGNES)
+divisive
+(e.g. DIANA)
+Hierarchical clustering
+--- Page 22 ---
+22
+• Agglomerative (bottom-up)
+• initialize each point as its own cluster
+• iteratively merge clusters
+• Divisive (top-down)
+• initialize all data points into one cluster
+• large clusters are successively divided
+Hierarchical clustering
+--- Page 23 ---
+23
+The number of dendrograms with n leafs  = (2n -3)!/[(2(n -2)) (n -2)!]
+Number Number of Possible
+of Leafs Dendrograms 
+2  1
+3  3
+4  15
+5  105
+...  …
+10  34,459,425
+cannot test all possible trees
+     ⟹ heuristic searches
+Hierarchical clustering
+--- Page 24 ---
+24
+Cluster distance
+• Single link: smallest distance between observations
+• Complete link: largest distance between observations
+• Average link: average distance between observations
+• Centroid link: distance between centroids
+• Ward’s distance: similarity based on the error increase when two clusters are merged           
+(sum of squared distances of points to closest centroid)
+𝑑(𝑐𝑖, 𝑐𝑗) = 1
+𝑐𝑖 𝑐𝑗
+෍
+𝑥𝑖∈𝐶𝑖
+෍
+𝑥𝑗∈𝐶𝑗
+𝑑(𝑥𝑖, 𝑥𝑗)
+--- Page 25 ---
+25
+𝑥1
+𝑥3 
+𝑥5 
+𝑥4 
+𝑥2
+…
+⋮
+Similarity?
+similarity matrix
+▪ MIN (single link)
+▪ MAX (complete link)
+▪ Average link
+▪ Centroid link
+▪ Ward’s method
+Cluster distance
+𝑥1 𝑥2 𝑥3 𝑥4 𝑥5 
+--- Page 26 ---
+26
+𝑥1
+𝑥3 
+𝑥5 
+𝑥4 
+𝑥2
+…
+⋮
+similarity matrix
+▪ MIN (single link)
+▪ MAX (complete link)
+▪ Average link
+▪ Centroid link
+▪ Ward’s method
+Cluster distance
+𝑥1 𝑥2 𝑥3 𝑥4 𝑥5 
+--- Page 27 ---
+27
+𝑥1
+𝑥3 
+𝑥5 
+𝑥4 
+𝑥2
+…
+⋮
+similarity matrix
+▪ MIN (single link)
+▪ MAX (complete link)
+▪ Average link
+▪ Centroid link
+▪ Ward’s method
+Cluster distance
+𝑥1 𝑥2 𝑥3 𝑥4 𝑥5 
+--- Page 28 ---
+28
+𝑥1
+𝑥3 
+𝑥5 
+𝑥4 
+𝑥2
+…
+⋮
+similarity matrix
+▪ MIN (single link)
+▪ MAX (complete link)
+▪ Average link
+▪ Centroid link
+▪ Ward’s method
+Cluster distance
+𝑥1 𝑥2 𝑥3 𝑥4 𝑥5 
+--- Page 29 ---
+29
+𝑥1
+𝑥3 
+𝑥5 
+𝑥4 
+𝑥2
+…
+⋮
+similarity matrix
+▪ MIN (single link)
+▪ MAX (complete link)
+▪ Average link
+▪ Centroid link
+▪ Ward’s method
+Cluster distance
+𝑥1 𝑥2 𝑥3 𝑥4 𝑥5 
+ 
+--- Page 30 ---
+30
+• We begin with a distance matrix which contains the                                                                 
+distances between every pair of objects in our database
+Hierarchical clustering
+0 8 8 7 7
+0 2 4 4
+0 3 3
+0 1
+0
+d(   ,  ) = 8
+d(   ,  ) = 1
+
+--- Page 31 ---
+31
+…
+Consider all 
+possible 
+merges…
+Choose 
+the best
+Hierarchical clustering
+Bottom-up (agglomerative): Starting with each point as 
+a cluster, find best pair. Repeat until all clusters are fused
+--- Page 32 ---
+32
+…
+Consider all 
+possible 
+merges…
+Choose 
+the best
+Consider all 
+possible 
+merges…
+…
+Choose 
+the best
+Hierarchical clustering
+Bottom-up (agglomerative): Starting with each point as 
+a cluster, find best pair. Repeat until all clusters are fused
+--- Page 33 ---
+33
+…
+Consider all 
+possible 
+merges…
+Choose 
+the best
+Consider all 
+possible 
+merges…
+…
+Choose 
+the best
+Consider all 
+possible 
+merges…
+Choose 
+the best…
+Hierarchical clustering
+Bottom-up (agglomerative)
+--- Page 34 ---
+34
+original points clusters
+• Can handle non-elliptical shapes
+MIN: strengths and limitations
+•Overlapping clusters and noise
+original points clusters
+--- Page 35 ---
+35
+Original Points
+• Less susceptible to noise and outliers
+MAX: strengths and limitations
+• Tends to break large clusters
+• Biased towards globular clusters
+original points clusters
+original points clusters
+--- Page 36 ---
+36
+Average
+Ward’s 1
+2
+3
+4
+5
+6
+1
+2
+5
+3
+4
+MIN
+MAX
+1
+2
+3
+4
+5
+6
+1
+2
+5
+3
+4
+1
+2
+3
+4
+5
+6
+1
+2 5
+3
+41
+2
+3
+4
+5
+6
+1
+2
+3
+4
+5
+Hierachical clustering: comparison
+• problems MIN and MAX link 
+can be minimized under 
+average/centroid/Ward link
+• strength: less susceptible 
+to noise and outliers
+• limitation: biases towards 
+globular clusters
+--- Page 37 ---
+37
+DBSCAN (density-based clustering)
+• clusters are defined as areas of higher density
+• separation occurs in sparse areas                                                       
+• isolated data points here seen as outliers
+• advantages? limitations?
+
+--- Page 38 ---
+38
+• parameters
+•  maximum distance
+• p minimum neighbors
+• algorithm
+• for each point: 
+         cluster points with p 
+         neighbors at <  distance 
+DBSCAN (density-based clustering)
+--- Page 39 ---
+39
+Outline
+• Introduction to clustering
+• Multivariate similarity metrics
+• Approaches
+• hierarchical
+• density-based
+• From multivariate to complex data structures
+• Evaluation
+• intrinsic metrics
+• extrinsic metrics
+--- Page 40 ---
+40
+Time series data
+• Time series: sequence of values or symbols along time 𝐬 =< 𝐱1, . . , 𝐱𝑇 >
+• univariate or multivariate, 𝐱𝑗 ∈ ℝ𝑚 (or 𝐱𝑗 ∈ {𝑌1. . 𝑌𝑚}), where 𝑚 is the multivariate order
+• Time series data: {𝐬1, . . , 𝐬𝑛} where 𝐬𝑖 is a time series
+• Time series are ubiquotous:                                                                                                                    
+monitoring biological, individual, organizational, geophysical, digital, mechanical, societal systems
+• Movement, image and video as time series, text data as time series
+• People measure things...
+• their blood pressure
+• the annual rainfall in New Zealand
+• the value of their Yahoo stock
+• the number of web hits per second
+ … and things change over time
+--- Page 41 ---
+41
+Time series clustering
+
+--- Page 42 ---
+42
+Text document clustering
+• Group related documents based on their content
+• the similarity between every string pair is calculated as a basis for determining the clusters
+• considering term vector spaces… cosine
+• A similarity measure is required to calculate the similarity between two strings
+approximate   
+string matching
+semantic similarity
+stem, feature extraction and lexical analysis
+D1
+D2
+sports
+T1 T2 ….……  Tm
+12   0    ….……   6
+Dn
+class
+travel
+jobs
+…
+…
+thousands of terms
+documents
+3   10   ….……  28
+0   11   ….……  16
+…
+--- Page 43 ---
+43
+GPS trajectory clustering
+
+--- Page 44 ---
+44
+Homes 
+of usersShop
+Walking 
+street
+Market
+place
+Swim
+hall
+Science
+park
+Spatial clustering
+
+--- Page 45 ---
+45
+Image and video clustering
+Image: Gansbeke et al.
+Image:  Liu and Shah
+
+--- Page 46 ---
+46
+Representation learning (next class)
+These and many other complex data structures may be encountered
+• video, events, tensors, heterogeneous data structures…
+Two major solutions
+• dedicated distances or clustering approaches
+• obtain (numeric) representations of these complex observations by extracting features
+• features can be extracted using simple statistics
+• e.g. extract centrality/variability/slope/max/min statistics on time series using sliding windows
+• embeddings can be extracted using representation learning
+• example: auto-encoder neural networks can                                                                                   
+be applied to deal with arbitrary complex inputs
+--- Page 47 ---
+47
+Outline
+• Introduction to clustering
+• Multivariate similarity metrics
+• Approaches
+• hierarchical
+• density-based
+• From multivariate to complex data structures
+• Evaluation
+• intrinsic metrics
+• extrinsic metrics
+--- Page 48 ---
+48
+Evaluation: clustering quality
+• 3 kinds of measures: external, internal and relative indexes
+• External (supervised): extent to which cluster labels match true labels
+• requires prior or expert knowledge
+• Internal (unsupervised): goodness without external information
+• how well they are separated (e.g. silhouette)
+• should be independent from algorithm-specific functions (unbiased)
+• Relative: compare different cluster analyses (different parameters/algorithms)
+--- Page 49 ---
+49
+Proximity graph-based approach to measure cohesion and separation
+• Cohesion is the sum of the weight of all links within a cluster
+• Separation is the sum of the weights between nodes in the cluster and nodes outside the cluster
+cohesion separation
+Internal measures: cohesion and separation
+--- Page 50 ---
+50
+• Cohesion (e.g. sum of squared errors or sum of square within): 
+           how closely related are points in a cluster
+• Separation (e.g. sum of squares between clusters)
+             how distinct or well-separated a cluster is from other clusters
+• Total error (e.g. sum of squares): within and between errors
+Internal measures: cohesion and separation
+𝑆𝑆𝐵 = 𝐵𝑆𝑆 = ෍
+𝑘
+𝑐𝑘 𝑑(𝑐𝑘, ǉ𝑥)2
+𝑆𝑆𝐸 = 𝑆𝑆𝑊 = ෍
+𝑘=1
+𝐾
+෍
+𝑥𝑖∈𝐶𝑘
+𝑑(𝑥𝑖, 𝑐𝑘)2
+𝑇𝑆𝑆 = 𝑆𝑆𝐵 + 𝑆𝑆𝐸
+𝑇𝑆𝑆 = ෍
+𝑖
+𝑛
+𝑑(𝑥𝑖, ǉ𝑥)2
+--- Page 51 ---
+51
+Internal measures: cohesion and separation
+SSB + SSE = constant
+1 2 3 4 5
+ 
+m1 m2
+m
+𝑆𝑆𝐸 = (1 − 1.5)2 + (2 − 1.5)2 + (4 − 4.5)2 + (5 − 4.5)2 = 1
+𝑆𝑆𝐵 = 2 × (3 − 1.5)2 + 2 × (4.5 − 3)2 = 9
+𝑇𝑜𝑡𝑎𝑙 = 1 + 9 = 10
+K=2 clusters:
+𝑆𝑆𝐸 = (1 − 3)2 + (2 − 3)2 + (4 − 3)2 + (5 − 3)2 = 10
+𝑆𝑆𝐵 = 4 × (3 − 3)2 = 0
+𝑇𝑜𝑡𝑎𝑙 = 10 + 0 = 10
+K=1 cluster:
+--- Page 52 ---
+52
+• For each observation, the error is the distance to the nearest cluster
+• Square these errors (to penalize larger distances) and sum these errors
+• Good to compare two clustering solutions or two clusters
+• Can also be used to estimate the number of clusters
+𝑆𝑆𝐸 = ෍
+𝑘=1
+𝐾
+෍
+𝑥𝑖∈𝐶𝑘
+𝑑(𝑥𝑖, 𝑐𝑘)2
+2 5 10 15 20 25 300
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+K
+SSE
+5 10 15
+-6
+-4
+-2
+0
+2
+4
+6
+Internal measures: cohesion
+--- Page 53 ---
+53
+Internal measures: cohesion
+Challenge on finding optimal #clusters:
+• an easy way to reduce SSE is to increase the #clusters
+• solution: elbow method (next class)
+1 
+2
+3
+5
+6
+4
+7
+SSE of clusters found using K-means
+
+--- Page 54 ---
+54
+• Combine ideas of both cohesion and separation
+• Calculated for a specific object 𝐱𝑖
+• 𝑎 = average distance of 𝐱𝑖 to the points in its cluster
+• 𝑏 = min (average distance of 𝐱𝑖 to points in another cluster)
+• the silhouette coefficient for a point is then given by 
+𝑠 = 1– 𝑎/𝑏   if 𝑎 < 𝑏,   (or 𝑠 = 𝑏/𝑎 − 1 if 𝑎  𝑏, not the usual case) 
+between −1 and 1 (the closer to 1 the better)
+• Silhouette of cluster and clustering solution: average of silhouettes
+a
+b
+Internal measures: silhouette coefficient
+
+--- Page 55 ---
+55
+Internal measures: silhouette coefficient
+
+--- Page 56 ---
+56
+•  Order the similarity matrix with respect to cluster labels and inspect visually
+0 0.2 0.4 0.6 0.8 1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+x
+y
+Points
+Points
+20 40 60 80 100
+10
+20
+30
+40
+50
+60
+70
+80
+90
+100
+Similarity
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+Internal measures: similarity matrix
+--- Page 57 ---
+57
+Points
+Points
+20 40 60 80 100
+10
+20
+30
+40
+50
+60
+70
+80
+90
+100
+Similarity
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+k-means
+0 0.2 0.4 0.6 0.8 1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+x
+y
+Internal measures: similarity matrix
+•  Clusters in random data are not well-defined
+Points
+Points
+20 40 60 80 100
+10
+20
+30
+40
+50
+60
+70
+80
+90
+100
+Similarity
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+complete link
+--- Page 58 ---
+58
+Recall: clustering evaluation
+• 3 kinds of measures: external, internal and relative indexes
+• External (supervised): extent to which cluster labels match true labels
+• requires prior or expert knowledge
+• Internal (unsupervised): goodness without external information
+• how well they are separated (e.g. silhouette)
+• should be independent from algorithm-specific functions (unbiased)
+• Relative: compare different cluster analyses (different parameters/algorithms)
+--- Page 59 ---
+59
+External measures: purity
+• Ω =  {𝜔1, 𝜔2, . . . , 𝜔𝐾} is the set of clusters
+ 𝐶 = {𝑐1, 𝑐2, . . . , 𝑐𝐽} is the set of classes
+• For each cluster 𝜔𝑘: find class 𝑐𝑗 with most objects in 𝜔𝑘, 𝑛𝑘𝑗 
+• Sum all 𝑛𝑘𝑗 and divide by total number of points
+• Problem: biased ⇒ n clusters maximizes purity
+• Alternatives: entropy of classes in clusters
+𝑝𝑢𝑟𝑖𝑡𝑦(Ω, 𝐶) = 1
+𝑛 ෍
+𝑘
+max
+𝑗
+|𝜔𝑘 ∩ 𝑐𝑗|
+--- Page 60 ---
+60
+•         •
+     •   •
+     •  •
+•         •
+•   •
+     •  •
+•         •
+     •   •
+       •
+cluster I cluster II cluster III
+cluster I: purity = 1/6 (max(5, 1, 0)) = 5/6
+cluster II: purity = 1/6 (max(1, 4, 1)) = 4/6
+cluster III: purity = 1/5 (max(2, 0, 3)) = 3/5
+Sec. 16.3
+solution: purity = 1/17 (5+4+3) = 12/17
+External measures: purity
+--- Page 61 ---
+61
+• Counts of object pairs
+• Rand index  RI =
+𝑇𝑃+𝑇𝑁
+𝑇𝑃+𝐹𝑃+𝐹𝑁+𝑇𝑁
+• Given a specific cluster (positive):
+• precision = TP/(TP+FP)
+• recall = TP/(TP+FN)
+• F-measure = 2precisionrecall / (precision + recall)
+External measures: rand index
+same cluster            different clusters
+         same class       true positives (TP)    false negatives (FN)
+different classes      false positives (FP)    true negatives (TN)
+--- Page 62 ---
+Number of 
+object pairs Same cluster Different clusters
+Same class in 
+ground truth 20 24
+Different classes 
+in ground truth 20 72
+Sec. 16.3
+External measures: rand index
+Rand index? 
+--- Page 63 ---
+63
+Thank you!
+Rui Henriques
+rmch@tecnico.ulisboa.pt 
