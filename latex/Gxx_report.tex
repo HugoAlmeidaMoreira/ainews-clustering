@@ -1,0 +1,75 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{hyperref}
+% Bibliography with biblatex (uses clustering.bib)
+\usepackage[backend=biber,style=numeric,sorting=nyt]{biblatex}
+\addbibresource{clustering.bib}
+
+\geometry{left=2cm,right=2cm,top=2.2cm,bottom=2.2cm}
+\setlength{\columnsep}{0.8cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\setstretch{1.02}
+
+\titleformat{\section}{\bfseries\Large}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\bfseries\large}{\thesubsection}{0.5em}{}
+
+\newcommand{\dotfillplaceholder}{\textit{...}}
+
+\begin{document}
+
+% ---- Header / Branding ----
+\vspace*{-0.6cm}
+\begin{minipage}[t]{0.35\textwidth}
+    \includegraphics[height=2cm]{images/tecnico-mais-logo-horizontal.png}
+\end{minipage}
+
+
+\vspace{1.2em}
+
+% ---- Authors row (2 columns) ----
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+Hugo, \underline{Moreira}\\
+hugoalmeidamoreira@gmail.com
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+Author name, \underline{xxxxxx}\\
+Author's e-mail address
+\end{minipage}
+
+\vspace{1.1em}
+
+% ---- Intro text before abstract ----
+
+
+% ==========================
+% Two-column body starts here
+% ==========================
+
+\begin{multicols}{2}
+
+\input{sections/abstract.tex}
+\input{sections/01_data_profiling.tex}
+\input{sections/02_data_representation.tex}
+\input{sections/03_clustering.tex}
+\input{sections/04_outlier_analysis.tex}
+\input{sections/appendix.tex}
+\input{sections/references.tex}
+
+\end{multicols}
+
+\end{document}
