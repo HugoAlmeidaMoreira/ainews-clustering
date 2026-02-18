@@ -1,9 +1,271 @@
-% PROJECT STATEMENT — relevant excerpts (see full text in `sections/project_statement_full.tex`)
-% "Delivery
-% Report: the report should follow the given template (Latex or Word) and is limited to 10 pages (6 pages suggested). The report can be written in Portuguese or English, and submitted in PDF format. ..."
-% 
-% "Functional project: Trainees should further provide the underlying programming code. A reference Jupyter notebook for projects in Python or R is available in the course webpage. Provide a .ZIP with all files (without the data sources), ensuring its standalone functionality."
-% 
-% Use: attach reproducible code + a ZIP with scripts/notebooks (exclude raw datasets). Include short reproducibility instructions in the Appendix.
 \section*{APPENDIX}
-Any less focal results or observations can be placed here.
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
+
+\subsection*{A. Blueprint Summary Mapping}
+\label{app:dna_summary}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{images/images-clustering/theseus-topography-semantic-identity.png}
+    \caption{Integrated Blueprint summary showing the distribution of seven polarized semantic traits across the topography.}
+    \label{app:fig:blueprint_summary}
+\end{figure}
+
+\subsection*{B. HDBSCAN Noise Distribution}
+\label{app:hdbscan_noise}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{images/images-clustering/theseus-topography-hdbscan-w-outliers.png}
+    \caption{Full topography including peripheral noise and outliers flagged by the HDBSCAN pipeline.}
+    \label{app:fig:hdbscan_noise}
+\end{figure}
+
+\clearpage
+\subsection*{C. Structural Breakdown (Initial K-Means)}
+\label{app:kmeans_regions_initial}
+
+\begin{figure*}[ht]
+    \centering
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-0-global-regulatory-&-policy-frameworks-2026-02-18.png}
+        \caption*{\footnotesize Region 0: Global Regulatory \& Policy Frameworks}
+    \end{minipage}
+    \hspace{1cm}
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-1-practical-ai-educational-narratives-2026-02-18.png}
+        \caption*{\footnotesize Region 1: Educational Narratives}
+    \end{minipage}
+    
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-2-institutional-alignment-&-compliance-2026-02-18.png}
+        \caption*{\footnotesize Region 2: Institutional Alignment \& Compliance}
+    \end{minipage}
+    \hspace{1cm}
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-3-technological-market-expansion-2026-02-18.png}
+        \caption*{\footnotesize Region 3: Market Expansion}
+    \end{minipage}
+    
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-4-localized-innovation-dynamics-2026-02-18.png}
+        \caption*{\footnotesize Region 4: Localized Innovation}
+    \end{minipage}
+    \hspace{1cm}
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-5-continental-ai-strategy-&-adoption-2026-02-18.png}
+        \caption*{\footnotesize Region 5: Continental Strategy}
+    \end{minipage}
+    
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-6-human-centric-ai-literacy-2026-02-18.png}
+        \caption*{\footnotesize Region 6: Human-Centric Literacy}
+    \end{minipage}
+    \hspace{1cm}
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-7-technical-enterprise-solutions-2026-02-18.png}
+        \caption*{\footnotesize Region 7: Enterprise Solutions}
+    \end{minipage}
+    \caption{Initial structural breakdown of semantic regions (0-7).}
+\end{figure*}
+
+\begin{figure*}[ht]
+    \centering
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-8-general-utility-&-service-ai-2026-02-18.png}
+        \caption*{\footnotesize Region 8: Utility \& Service AI}
+    \end{minipage}
+    \hspace{1cm}
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-9-advanced-algorithmic-optimization-2026-02-18.png}
+        \caption*{\footnotesize Region 9: Algorithmic Optimization}
+    \end{minipage}
+    
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-10-corporate-research-&-infrastructure-2026-02-18.png}
+        \caption*{\footnotesize Region 10: R\&D Infrastructure}
+    \end{minipage}
+    \hspace{1cm}
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-11-global-tech-frontier-analysis-2026-02-18.png}
+        \caption*{\footnotesize Region 11: Global Tech Frontier}
+    \end{minipage}
+    
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-12-synthetic-intelligence-&-market-trends-2026-02-18.png}
+        \caption*{\footnotesize Region 12: Synthetic Intelligence}
+    \end{minipage}
+    \hspace{1cm}
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-13-mainstream-economic-transformation-2026-02-18.png}
+        \caption*{\footnotesize Region 13: Economic Transformation}
+    \end{minipage}
+
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-14-cross-border-ai-integration-2026-02-18.png}
+        \caption*{\footnotesize Region 14: Cross-Border Integration}
+    \end{minipage}
+    \caption{Initial structural breakdown (8-14).}
+\end{figure*}
+
+\clearpage
+\subsection*{D. Refined Semantic Cores (Final Solution)}
+\label{app:kmeans_regions_core}
+
+\begin{figure*}[ht]
+    \centering
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-0-global-regulatory-&-policy-frameworks-[core]-2026-02-18.png}
+        \caption*{\footnotesize Region 0: Regulatory \& Policy Frameworks}
+    \end{minipage}
+    \hspace{1cm}
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-1-practical-ai-educational-narratives-[core]-2026-02-18.png}
+        \caption*{\footnotesize Region 1: Educational Narratives}
+    \end{minipage}
+    
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-2-institutional-alignment-&-compliance-[core]-2026-02-18.png}
+        \caption*{\footnotesize Region 2: Institutional Alignment \& Compliance}
+    \end{minipage}
+    \hspace{1cm}
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-3-technological-market-expansion-[core]-2026-02-18.png}
+        \caption*{\footnotesize Region 3: Market Expansion}
+    \end{minipage}
+    
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-4-localized-innovation-dynamics-[core]-2026-02-18.png}
+        \caption*{\footnotesize Region 4: Localized Innovation}
+    \end{minipage}
+    \hspace{1cm}
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-5-continental-ai-strategy-&-adoption-[core]-2026-02-18.png}
+        \caption*{\footnotesize Region 5: Continental Strategy}
+    \end{minipage}
+    
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-6-human-centric-ai-literacy-[core]-2026-02-18.png}
+        \caption*{\footnotesize Region 6: Human-Centric Literacy}
+    \end{minipage}
+    \hspace{1cm}
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-7-technical-enterprise-solutions-[core]-2026-02-18.png}
+        \caption*{\footnotesize Region 7: Enterprise Solutions}
+    \end{minipage}
+    \caption{Structural breakdown of optimized core regions (0-7).}
+\end{figure*}
+
+\begin{figure*}[ht]
+    \centering
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-10-corporate-research-&-infrastructure-[core]-2026-02-18.png}
+        \caption*{\footnotesize Region 10: R\&D Infrastructure}
+    \end{minipage}
+    \hspace{1cm}
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-11-global-tech-frontier-analysis-[core]-2026-02-18.png}
+        \caption*{\footnotesize Region 11: Global Tech Frontier}
+    \end{minipage}
+    
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-12-synthetic-intelligence-&-market-trends-[core]-2026-02-18.png}
+        \caption*{\footnotesize Region 12: Synthetic Intelligence}
+    \end{minipage}
+    \hspace{1cm}
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-13-mainstream-economic-transformation-[core]-2026-02-18.png}
+        \caption*{\footnotesize Region 13: Economic Transformation}
+    \end{minipage}
+    
+    \begin{minipage}{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/REGION-14-cross-border-ai-integration-[core]-2026-02-18.png}
+        \caption*{\footnotesize Region 14: Cross-Border Integration}
+    \end{minipage}
+    \caption{Structural breakdown of optimized core regions (10-14).}
+\end{figure*}
+
+\clearpage
+\subsection*{E. Semantic Blueprint Dimensions Gallery}
+\label{app:dna_breakdown}
+
+\begin{figure*}[ht]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/DNA-economic-momentum-2026-02-18.png}
+        \caption*{Dimension: Economic Momentum}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/DNA-ethics-vs.-utility-2026-02-18.png}
+        \caption*{Dimension: Ethics vs. Utility}
+    \end{minipage}
+    \vspace{0.2cm}
+    
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/DNA-geopolitical-scope-2026-02-18.png}
+        \caption*{Dimension: Geopolitical Scope}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/DNA-opportunity-vs.-risk-2026-02-18.png}
+        \caption*{Dimension: Opportunity vs. Risk}
+    \end{minipage}
+    \caption{Breakdown of Semantic Blueprint dimensions (1-4).}
+\end{figure*}
+
+\begin{figure*}[ht]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/DNA-regulatory-pressure-2026-02-18.png}
+        \caption*{Dimension: Regulatory Pressure}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/DNA-technical-depth-2026-02-18.png}
+        \caption*{Dimension: Technical Depth}
+    \end{minipage}
+    \vspace{0.2cm}
+    
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/images-clustering/DNA-urgency-_-sentiment-2026-02-18.png}
+        \caption*{Dimension: Urgency / Sentiment}
+    \end{minipage}
+    \caption{Detailed breakdown of the remaining Semantic Blueprint dimensions ($<0.25$ and $>0.75$).}
+\end{figure*}

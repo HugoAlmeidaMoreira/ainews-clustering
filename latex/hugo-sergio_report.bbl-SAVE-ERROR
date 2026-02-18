@@ -1,0 +1,524 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nyt/global//global/global}
+    \entry{aggarwalOutlierAnalysis2017}{book}{}
+      \name{author}{1}{}{%
+        {{hash=86d11a07b1bfeac58dc68f7a419b3039}{%
+           family={Aggarwal},
+           familyi={A\bibinitperiod},
+           given={Charu\bibnamedelima C.},
+           giveni={C\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cham}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{86d11a07b1bfeac58dc68f7a419b3039}
+      \strng{fullhash}{86d11a07b1bfeac58dc68f7a419b3039}
+      \strng{bibnamehash}{86d11a07b1bfeac58dc68f7a419b3039}
+      \strng{authorbibnamehash}{86d11a07b1bfeac58dc68f7a419b3039}
+      \strng{authornamehash}{86d11a07b1bfeac58dc68f7a419b3039}
+      \strng{authorfullhash}{86d11a07b1bfeac58dc68f7a419b3039}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This book provides comprehensive coverage of the field of outlier analysis from a computer science point of view. It integrates methods from data mining, machine learning, and statistics within the computational framework and therefore appeals to multiple communities. The chapters of this book can be organized into three categories:Basic algorithms: Chapters 1 through 7 discuss the fundamental algorithms for outlier analysis, including probabilistic and statistical methods, linear methods, proximity-based methods, high-dimensional (subspace) methods, ensemble methods, and supervised methods.Domain-specific methods: Chapters 8 through 12 discuss outlier detection algorithms for various domains of data, such as text, categorical data, time-series data, discrete sequence data, spatial data, and network data.Applications: Chapter 13 is devoted to various applications of outlier analysis. Some guidance is also provided for the practitioner.The second edition of this book is more detailed and is written to appeal to both researchers and practitioners. Significant new material has been added on topics such as kernel methods, one-class support-vector machines, matrix factorization, neural networks, outlier ensembles, time-series methods, and subspace methods. It is written as a textbook and can be used for classroom teaching.}
+      \field{isbn}{978-3-319-47577-6}
+      \field{langid}{english}
+      \field{pagetotal}{488}
+      \field{title}{Outlier {{Analysis}}}
+      \field{year}{2017}
+      \field{dateera}{ce}
+      \true{nocite}
+      \verb{file}
+      \verb C:\Users\hugo\Zotero\storage\HELCLHF5\Aggarwal - 2017 - Outlier Analysis.pdf
+      \endverb
+    \endentry
+    \entry{bengioRepresentationLearningReview2014}{online}{}
+      \name{author}{3}{}{%
+        {{hash=40a8e4774982146adc2688546f54efb2}{%
+           family={Bengio},
+           familyi={B\bibinitperiod},
+           given={Yoshua},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=ccec1ccd2e1aa86960eb2e872c6b7020}{%
+           family={Courville},
+           familyi={C\bibinitperiod},
+           given={Aaron},
+           giveni={A\bibinitperiod}}}%
+        {{hash=da21e966c02c3cfd33d74369c7435c1a}{%
+           family={Vincent},
+           familyi={V\bibinitperiod},
+           given={Pascal},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{54af866264cacba174612c82da34a2d7}
+      \strng{fullhash}{54af866264cacba174612c82da34a2d7}
+      \strng{bibnamehash}{54af866264cacba174612c82da34a2d7}
+      \strng{authorbibnamehash}{54af866264cacba174612c82da34a2d7}
+      \strng{authornamehash}{54af866264cacba174612c82da34a2d7}
+      \strng{authorfullhash}{54af866264cacba174612c82da34a2d7}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{The success of machine learning algorithms generally depends on data representation, and we hypothesize that this is because different representations can entangle and hide more or less the different explanatory factors of variation behind the data. Although specific domain knowledge can be used to help design representations, learning with generic priors can also be used, and the quest for AI is motivating the design of more powerful representation-learning algorithms implementing such priors. This paper reviews recent work in the area of unsupervised feature learning and deep learning, covering advances in probabilistic models, auto-encoders, manifold learning, and deep networks. This motivates longer-term unanswered questions about the appropriate objectives for learning good representations, for computing representations (i.e., inference), and the geometrical connections between representation learning, density estimation and manifold learning.}
+      \field{day}{23}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arXiv}
+      \field{month}{4}
+      \field{pubstate}{prepublished}
+      \field{shorttitle}{Representation {{Learning}}}
+      \field{title}{Representation {{Learning}}: {{A Review}} and {{New Perspectives}}}
+      \field{urlday}{10}
+      \field{urlmonth}{1}
+      \field{urlyear}{2026}
+      \field{year}{2014}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{doi}
+      \verb 10.48550/arXiv.1206.5538
+      \endverb
+      \verb{eprint}
+      \verb 1206.5538
+      \endverb
+      \verb{file}
+      \verb C\:\\Users\\hugo\\Zotero\\storage\\Z2HQL8BT\\Bengio et al. - 2014 - Representation Learning A Review and New Perspectives.pdf;C\:\\Users\\hugo\\Zotero\\storage\\7RZBNUYG\\1206.html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1206.5538
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1206.5538
+      \endverb
+      \keyw{Computer Science - Machine Learning}
+    \endentry
+    \entry{bishopDeepLearningFoundations2024}{book}{}
+      \name{author}{2}{}{%
+        {{hash=9dfd0135a5e80aa6d81cea2c10fb7f73}{%
+           family={Bishop},
+           familyi={B\bibinitperiod},
+           given={Christopher\bibnamedelima M.},
+           giveni={C\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=9ca7f36f884f509df3d999cc286274b4}{%
+           family={Bishop},
+           familyi={B\bibinitperiod},
+           given={Hugh},
+           giveni={H\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cham}%
+      }
+      \list{publisher}{1}{%
+        {Springer International Publishing}%
+      }
+      \strng{namehash}{3911479a04ac6ac89bde53ed50604061}
+      \strng{fullhash}{3911479a04ac6ac89bde53ed50604061}
+      \strng{bibnamehash}{3911479a04ac6ac89bde53ed50604061}
+      \strng{authorbibnamehash}{3911479a04ac6ac89bde53ed50604061}
+      \strng{authornamehash}{3911479a04ac6ac89bde53ed50604061}
+      \strng{authorfullhash}{3911479a04ac6ac89bde53ed50604061}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{isbn}{978-3-031-45467-7 978-3-031-45468-4}
+      \field{langid}{english}
+      \field{shorttitle}{Deep {{Learning}}}
+      \field{title}{Deep {{Learning}}: {{Foundations}} and {{Concepts}}}
+      \field{urlday}{17}
+      \field{urlmonth}{1}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{doi}
+      \verb 10.1007/978-3-031-45468-4
+      \endverb
+      \verb{urlraw}
+      \verb https://link.springer.com/10.1007/978-3-031-45468-4
+      \endverb
+      \verb{url}
+      \verb https://link.springer.com/10.1007/978-3-031-45468-4
+      \endverb
+    \endentry
+    \entry{burkartSurveyExplainabilitySupervised2021}{article}{}
+      \name{author}{2}{}{%
+        {{hash=af8d969a37f96f5bc5650e6654632a4d}{%
+           family={Burkart},
+           familyi={B\bibinitperiod},
+           given={Nadia},
+           giveni={N\bibinitperiod}}}%
+        {{hash=d71df99b7075b53c123b8d5d3e1ffce1}{%
+           family={Huber},
+           familyi={H\bibinitperiod},
+           given={Marco\bibnamedelima F.},
+           giveni={M\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \strng{namehash}{854c17100c2229c2446667b17b447425}
+      \strng{fullhash}{854c17100c2229c2446667b17b447425}
+      \strng{bibnamehash}{854c17100c2229c2446667b17b447425}
+      \strng{authorbibnamehash}{854c17100c2229c2446667b17b447425}
+      \strng{authornamehash}{854c17100c2229c2446667b17b447425}
+      \strng{authorfullhash}{854c17100c2229c2446667b17b447425}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Predictions obtained by, e.g., artificial neural networks have a high accuracy but humans often perceive the models as black boxes. Insights about the decision making are mostly opaque for humans. Particularly understanding the decision making in highly sensitive areas such as healthcare or fifinance, is of paramount importance. The decision-making behind the black boxes requires it to be more transparent, accountable, and understandable for humans. This survey paper provides essential definitions, an overview of the different principles and methodologies of explainable Supervised Machine Learning (SML). We conduct a state-of-the-art survey that reviews past and recent explainable SML approaches and classifies them according to the introduced definitions. Finally, we illustrate principles by means of an explanatory case study and discuss important future directions.}
+      \field{day}{19}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arXiv}
+      \field{issn}{1076-9757}
+      \field{journaltitle}{Journal of Artificial Intelligence Research}
+      \field{month}{1}
+      \field{shortjournal}{jair}
+      \field{title}{A {{Survey}} on the {{Explainability}} of {{Supervised Machine Learning}}}
+      \field{urlday}{10}
+      \field{urlmonth}{1}
+      \field{urlyear}{2026}
+      \field{volume}{70}
+      \field{year}{2021}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{245\bibrangedash 317}
+      \range{pages}{73}
+      \verb{doi}
+      \verb 10.1613/jair.1.12228
+      \endverb
+      \verb{eprint}
+      \verb 2011.07876
+      \endverb
+      \verb{file}
+      \verb C\:\\Users\\hugo\\Zotero\\storage\\IPGJIDWI\\Burkart and Huber - 2021 - A Survey on the Explainability of Supervised Machine Learning.pdf;C\:\\Users\\hugo\\Zotero\\storage\\V2SFZFSG\\2011.html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2011.07876
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2011.07876
+      \endverb
+      \keyw{Computer Science - Artificial Intelligence,Computer Science - Machine Learning,Statistics - Machine Learning}
+    \endentry
+    \entry{facco2017estimating}{article}{}
+      \name{author}{4}{}{%
+        {{hash=436ce06bb2b2795da5419dd13624c6eb}{%
+           family={Facco},
+           familyi={F\bibinitperiod},
+           given={Elena},
+           giveni={E\bibinitperiod}}}%
+        {{hash=faab18bbafa57c076fa5e776015293aa}{%
+           family={d’Errico},
+           familyi={d\bibinitperiod},
+           given={Maria},
+           giveni={M\bibinitperiod}}}%
+        {{hash=9330cfe1b38ebce195ddf10a5b22338c}{%
+           family={Rodriguez},
+           familyi={R\bibinitperiod},
+           given={Alex},
+           giveni={A\bibinitperiod}}}%
+        {{hash=263ee6a0690c44152deeedfc171f05a8}{%
+           family={Laio},
+           familyi={L\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{2}{%
+        {Springer Science}%
+        {Business Media LLC}%
+      }
+      \strng{namehash}{f40b5f8ac9537dfa7a3d17746e42245f}
+      \strng{fullhash}{88211eb466a1ded80eec64586df70a93}
+      \strng{bibnamehash}{f40b5f8ac9537dfa7a3d17746e42245f}
+      \strng{authorbibnamehash}{f40b5f8ac9537dfa7a3d17746e42245f}
+      \strng{authornamehash}{f40b5f8ac9537dfa7a3d17746e42245f}
+      \strng{authorfullhash}{88211eb466a1ded80eec64586df70a93}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{2045-2322}
+      \field{journaltitle}{Scientific Reports}
+      \field{number}{1}
+      \field{title}{Estimating the intrinsic dimension of datasets by a minimal neighborhood information}
+      \field{volume}{7}
+      \field{year}{2017}
+      \verb{doi}
+      \verb 10.1038/s41598-017-11873-y
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1038/s41598-017-11873-y
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1038/s41598-017-11873-y
+      \endverb
+    \endentry
+    \entry{henriquesTriclusteringAlgorithmsThreeDimensional2018}{article}{}
+      \name{author}{2}{}{%
+        {{hash=4ada63bc461d3c67f261f985a6fad35d}{%
+           family={Henriques},
+           familyi={H\bibinitperiod},
+           given={Rui},
+           giveni={R\bibinitperiod}}}%
+        {{hash=6fd8804252c3abe30f899ca017805587}{%
+           family={Madeira},
+           familyi={M\bibinitperiod},
+           given={Sara\bibnamedelima C.},
+           giveni={S\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{e3e916eb88b65b4ee4bee358e6f08582}
+      \strng{fullhash}{e3e916eb88b65b4ee4bee358e6f08582}
+      \strng{bibnamehash}{e3e916eb88b65b4ee4bee358e6f08582}
+      \strng{authorbibnamehash}{e3e916eb88b65b4ee4bee358e6f08582}
+      \strng{authornamehash}{e3e916eb88b65b4ee4bee358e6f08582}
+      \strng{authorfullhash}{e3e916eb88b65b4ee4bee358e6f08582}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Three-dimensional data are increasingly prevalent across biomedical and social domains. Notable examples are gene-sample-time, individual-feature-time, or node-node-time data, generally referred to as observation-attribute-context data. The unsupervised analysis of three-dimensional data can be pursued to discover putative biological modules, disease progression profiles, and communities of individuals with coherent behavior, among other patterns of interest. It is thus key to enhance the understanding of complex biological, individual, and societal systems. In this context, although clustering can be applied to group observations, its relevance is limited since observations in three-dimensional data domains are typically only meaningfully correlated on subspaces of the overall space. Biclustering tackles this challenge but disregards the third dimension. In this scenario, triclustering—the discovery of coherent subspaces within three-dimensional data—has been largely researched to tackle these problems. Despite the diversity of contributions in this field, there still lacks a structured view on the major requirements of triclustering, desirable forms of homogeneity (including coherency, structure, quality, locality, and orthonormality criteria), and algorithmic approaches. This work formalizes the triclustering task and its scope, introduces a taxonomy to categorize the contributions in the field, provides a comprehensive comparison of state-of-the-art triclustering algorithms according to their behavior and output, and lists relevant real-world applications. Finally, it highlights challenges and opportunities to advance the field of triclustering and its applicability to complex three-dimensional data analysis.}
+      \field{day}{18}
+      \field{issn}{0360-0300}
+      \field{journaltitle}{ACM Comput. Surv.}
+      \field{month}{9}
+      \field{number}{5}
+      \field{shorttitle}{Triclustering {{Algorithms}} for {{Three-Dimensional Data Analysis}}}
+      \field{title}{Triclustering {{Algorithms}} for {{Three-Dimensional Data Analysis}}: {{A Comprehensive Survey}}}
+      \field{urlday}{10}
+      \field{urlmonth}{1}
+      \field{urlyear}{2026}
+      \field{volume}{51}
+      \field{year}{2018}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{95:1\bibrangedash 95:43}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1145/3195833
+      \endverb
+      \verb{file}
+      \verb C:\Users\hugo\Zotero\storage\R56GM4KZ\Henriques and Madeira - 2018 - Triclustering Algorithms for Three-Dimensional Data Analysis A Comprehensive Survey.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://dl.acm.org/doi/10.1145/3195833
+      \endverb
+      \verb{url}
+      \verb https://dl.acm.org/doi/10.1145/3195833
+      \endverb
+    \endentry
+    \entry{LearningDeepRepresentations}{online}{}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labeltitlesource}{title}
+      \field{title}{Learning {{Deep Representations}} of {{Data Distributions}}}
+      \field{urlday}{10}
+      \field{urlmonth}{1}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{file}
+      \verb C:\Users\hugo\Zotero\storage\PN5ST5Y5\deep-representation-learning-book.html
+      \endverb
+      \verb{urlraw}
+      \verb https://ma-lab-berkeley.github.io/deep-representation-learning-book/
+      \endverb
+      \verb{url}
+      \verb https://ma-lab-berkeley.github.io/deep-representation-learning-book/
+      \endverb
+    \endentry
+    \entry{mcinnes2018umap}{article}{}
+      \name{author}{3}{}{%
+        {{hash=f3edd0ee6ca72eca5c532b9c1fcee621}{%
+           family={McInnes},
+           familyi={M\bibinitperiod},
+           given={Leland},
+           giveni={L\bibinitperiod}}}%
+        {{hash=2a653f5c3174b96798d6336399101032}{%
+           family={Healy},
+           familyi={H\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+        {{hash=542b470ec223367aba58d9d095e4e340}{%
+           family={Melville},
+           familyi={M\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{9bc0813b09f8460b9f60233db84de773}
+      \strng{fullhash}{9bc0813b09f8460b9f60233db84de773}
+      \strng{bibnamehash}{9bc0813b09f8460b9f60233db84de773}
+      \strng{authorbibnamehash}{9bc0813b09f8460b9f60233db84de773}
+      \strng{authornamehash}{9bc0813b09f8460b9f60233db84de773}
+      \strng{authorfullhash}{9bc0813b09f8460b9f60233db84de773}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1802.03426}
+      \field{title}{UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1802.03426
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1802.03426
+      \endverb
+    \endentry
+    \entry{wallace2024meandifference}{article}{}
+      \name{author}{5}{}{%
+        {{hash=f7bf50210206dec5bb19e32a74e1a580}{%
+           family={Wallace},
+           familyi={W\bibinitperiod},
+           given={Eric},
+           giveni={E\bibinitperiod}}}%
+        {{hash=1fdbe6573824ffd09db88df8bfcf769f}{%
+           family={Feng},
+           familyi={F\bibinitperiod},
+           given={Shi},
+           giveni={S\bibinitperiod}}}%
+        {{hash=192f73d7e7cf8933d6e05dbfe56fe6ec}{%
+           family={Kandpal},
+           familyi={K\bibinitperiod},
+           given={Nikhil},
+           giveni={N\bibinitperiod}}}%
+        {{hash=6adacaf607ef85a7b55da44661636929}{%
+           family={Gardner},
+           familyi={G\bibinitperiod},
+           given={Matt},
+           giveni={M\bibinitperiod}}}%
+        {{hash=0b9694812f0dc77974d99bb875a76d48}{%
+           family={Singh},
+           familyi={S\bibinitperiod},
+           given={Sameer},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{bf34b8045ad57763c6a9ab69b6b3bdde}
+      \strng{fullhash}{9e5e961cd7d4e962bc55f6d9dfabbfa1}
+      \strng{bibnamehash}{bf34b8045ad57763c6a9ab69b6b3bdde}
+      \strng{authorbibnamehash}{bf34b8045ad57763c6a9ab69b6b3bdde}
+      \strng{authornamehash}{bf34b8045ad57763c6a9ab69b6b3bdde}
+      \strng{authorfullhash}{9e5e961cd7d4e962bc55f6d9dfabbfa1}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:2403.14859}
+      \field{title}{The Mean-Difference: A Simple and Effective Method for Zero-Shot Classification}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2403.14859
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2403.14859
+      \endverb
+    \endentry
+    \entry{xu2007scan}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=2dda16c0a5d50fc830d0d4a3787937fa}{%
+           family={Xu},
+           familyi={X\bibinitperiod},
+           given={Xiaowei},
+           giveni={X\bibinitperiod}}}%
+        {{hash=36db5903c5c1c28a176f4a79bf7a0719}{%
+           family={Yuruk},
+           familyi={Y\bibinitperiod},
+           given={Nurcan},
+           giveni={N\bibinitperiod}}}%
+        {{hash=f8ed500b086db71f8ee642c56fd0ba74}{%
+           family={Feng},
+           familyi={F\bibinitperiod},
+           given={Zhidan},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=4594dff5622f9a52e78f1c4fd6c5bb9c}{%
+           family={Schweiger},
+           familyi={S\bibinitperiod},
+           given={Thomas\bibnamedelima AJ},
+           giveni={T\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{78f9fe8659dfe10b34080207b6d16b2c}
+      \strng{fullhash}{7699f4c6f6c2d8ba16a3f3031cdbd9da}
+      \strng{bibnamehash}{78f9fe8659dfe10b34080207b6d16b2c}
+      \strng{authorbibnamehash}{78f9fe8659dfe10b34080207b6d16b2c}
+      \strng{authornamehash}{78f9fe8659dfe10b34080207b6d16b2c}
+      \strng{authorfullhash}{7699f4c6f6c2d8ba16a3f3031cdbd9da}
+      \field{sortinit}{X}
+      \field{sortinithash}{1965c258adceecf23ce3d67b05113442}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 13th ACM SIGKDD international conference on Knowledge discovery and data mining}
+      \field{title}{Scan: a structural clustering algorithm for networks}
+      \field{year}{2007}
+      \field{pages}{824\bibrangedash 833}
+      \range{pages}{10}
+    \endentry
+    \entry{zakiDataMiningMachine2020a}{book}{}
+      \name{author}{2}{}{%
+        {{hash=404eb667af641569d44ed07a5ba9dc58}{%
+           family={Zaki},
+           familyi={Z\bibinitperiod},
+           given={Mohammed\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=6970cbfb99eca9422f5d540a485129e6}{%
+           family={Jr},
+           familyi={J\bibinitperiod},
+           given={Wagner\bibnamedelima Meira},
+           giveni={W\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cambridge}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{d3cd59e70bd43df754737390a31506e1}
+      \strng{fullhash}{d3cd59e70bd43df754737390a31506e1}
+      \strng{bibnamehash}{d3cd59e70bd43df754737390a31506e1}
+      \strng{authorbibnamehash}{d3cd59e70bd43df754737390a31506e1}
+      \strng{authornamehash}{d3cd59e70bd43df754737390a31506e1}
+      \strng{authorfullhash}{d3cd59e70bd43df754737390a31506e1}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{The fundamental algorithms in data mining and machine learning form the basis of data science, utilizing automated methods to analyze patterns and models for all kinds of data in applications ranging from scientific discovery to business analytics. This textbook for senior undergraduate and graduate courses provides a comprehensive, in-depth overview of data mining, machine learning and statistics, offering solid guidance for students, researchers, and practitioners. The book lays the foundations of data analysis, pattern mining, clustering, classification and regression, with a focus on the algorithms and the underlying algebraic, geometric, and probabilistic concepts. New to this second edition is an entire part devoted to regression methods, including neural networks and deep learning.}
+      \field{isbn}{978-1-108-47398-9}
+      \field{langid}{english}
+      \field{pagetotal}{776}
+      \field{shorttitle}{Data {{Mining}} and {{Machine Learning}}}
+      \field{title}{Data {{Mining}} and {{Machine Learning}}: {{Fundamental Concepts}} and {{Algorithms}}}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \true{nocite}
+      \verb{file}
+      \verb C:\Users\hugo\Zotero\storage\256XI3J2\Zaki and Jr - 2020 - Data Mining and Machine Learning Fundamental Concepts and Algorithms.pdf
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

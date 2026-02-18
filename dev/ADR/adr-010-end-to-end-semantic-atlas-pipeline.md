@@ -141,12 +141,13 @@ Articles are projected onto 7 dialectic axes (Sliders) using the **Logit-Lens** 
 *   **Model**: **Qwen2.5-72B-Instruct** (High-Fidelity) or **Qwen2.5-7B-Instruct** (Baseline).
 *   **Result**: Precise continuous scores (0.0 - 1.0) per axis.
 
-### Stage 3: Topographic Clustering & Reduction (ADR-003)
-*   **Reduction**: UMAP projects 4096D (Qwen-8B) vectors into a **5D latent space**.
-*   **Clustering**: **HDBSCAN** for density-based "Islands", identifying cohesive hubs while filtering noise.
+### Stage 3: Topographic Mapping & Hybrid Clustering (ADR-003)
+*   **Reduction**: UMAP projects 4096D (Qwen-8B) vectors into a **5D latent space** for clustering and a **2D space** for visualization.
+*   **Analysis (HDBSCAN)**: A density-based analysis identifies semantic noise and high-density cores. This serves as a diagnostic for outlier identification.
+*   **Segmentation (K-Means)**: **K-Means (K=15)** is applied to provide a comprehensive structural mapping of narrative regions across the entire corpus.
 
 ### Stage 4: Semantic Painting & Interpretation
-*   **Painter**: **Qwen-72B** (`mesolitica/Qwen2.5-72B-Instruct-FP8`) interprets the **HDBSCAN** clusters using the pre-computed **Context Snippets** and average slider profiles.
+*   **Painter**: **Qwen-72B** (`mesolitica/Qwen2.5-72B-Instruct-FP8`) interprets the **K-Means** clusters using the pre-computed **Context Snippets** and average slider profiles.
 
 ---
 
@@ -179,9 +180,10 @@ graph TD
         LOGITS["<b>Logit-Lens</b><br/>Probabilistic Scaling"]:::stage2
     end
 
-    subgraph "Stage 3: Topographic Mapping (ADR-003)"
-        UMAP["UMAP Reduction<br/>(4096D -> 5D)"]:::stage3
-        HDBSCAN["<b>HDBSCAN</b><br/>Density-Based Islands"]:::stage3
+    subgraph "Stage 3: Hybrid Clustering (ADR-003)"
+        UMAP["UMAP Reduction<br/>(4096D -> 5D/2D)"]:::stage3
+        HDBSCAN["<b>HDBSCAN</b><br/>Noise/Outlier Pruning"]:::stage3
+        KMEANS["<b>K-Means (K=15)</b><br/>Structural Segmentation"]:::stage3
     end
 
     subgraph "Stage 4: Semantic Painting (ADR-006)"
@@ -201,8 +203,10 @@ graph TD
 
     QWEN_EMB --> UMAP
     UMAP --> HDBSCAN
+    UMAP --> KMEANS
 
-    HDBSCAN --> PAINTER
+    KMEANS --> PAINTER
+    HDBSCAN -- "Outlier Metadata" --> PAINTER
     LOGITS --> PAINTER
     CONTEXT --> PAINTER
     

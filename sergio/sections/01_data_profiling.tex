@@ -1,0 +1,35 @@
+% PROJECT STATEMENT — relevant excerpts (see full text in `sections/project_statement_full.tex`)
+% "Regarding data profiling and representation:
+% - the groups should perform a statistical analysis of the datasets in advance, and summarize relevant implications in the report, such as the underlying distributions, relevant statistics and hypothesized forms feature dependency;"
+% 
+% "- adequate data representations should be pursued for projects with non-tabular data structures and unstructured variables using domain-guided transformations or representation learning (embeddings);"
+% 
+% "- the underlying complexity of the datasets can be assessed via summarization capacity using linear methods, such as PCA, and non-linear methods, such as autoencoders;"
+% 
+% Use: include descriptive statistics, distribution plots, missingness, correlation/feature dependency hypotheses, and representation diagnostics (PCA reconstructions, latent-dim analysis, etc.).
+
+\section{DATA PROFILING}
+\label{sec:data_prof}
+\subsection{Descriptive statistics}
+\subsubsection{Dataset 1}
+\dotfillplaceholder
+\subsubsection{Dataset 2 - Customer Analysis}
+\par The dataset in study is the publicly available Customer Personality Analysis present in the following Kaggle \href{https://www.kaggle.com/datasets/imakash3011/customer-personality-analysis/data}{URL}.
+\par A brief analysis is presented below:
+\begin{itemize}
+    \item Dataset has 2240 rows and 28 columns including the class "Response".
+    \item 24 numeric variables and 3 symbolic and a binary class variable.
+    \item Variable \textbf{Income} contains 24 missing values.
+    \item Class distribution is 331 true and 1881 false observations
+\end{itemize}
+\par Prior to any clustering or outlier analysis the following data preparation steps were followed:
+\begin{enumerate}
+    \item Feature selection analysis through low variance. Variables identified for later removal during clustering and outlier analysis
+    \item Rows with missing values were dropped
+    \item Date column was dropped due to ot being relevant in this process
+    \item InterQuartile Range (IQR) and standard Deviation (stdev) outlier analysis identified that all the dataset's variables contain multiple observations that could be identified as outliers
+    \item Data was scaled according to the MinMax approach
+\end{enumerate}
+
+\subsection{Explainable models \normalfont(optional)}
+Predictive models applied in the precursor Data Science Eng. course can be optionally visualized/interpreted here. SHAP is suggested to this end.

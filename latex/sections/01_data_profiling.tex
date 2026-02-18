@@ -8,8 +8,49 @@
 % 
 % Use: include descriptive statistics, distribution plots, missingness, correlation/feature dependency hypotheses, and representation diagnostics (PCA reconstructions, latent-dim analysis, etc.).
 \section{DATA PROFILING}
+\label{sec:data_prof}
 \subsection{Descriptive statistics}
-\dotfillplaceholder
 
-\subsection{Explainable models \normalfont(optional)}
-Predictive models applied in the precursor Data Science Eng. course can be optionally visualized/interpreted here. SHAP is suggested to this end.
+\paragraph{Dataset (A) - AI News}
+The dataset(A) comprises 11,922 portuguese news articles published between 2022 and 2024. No null values are present and every record contains the expression "Inteligência artificial" and/or "AIAct" in either the title or the description. For this work, we focus on the \texttt{title} and \texttt{description} fields, which correspond to the news headline and its content, respectively.
+
+\begin{center}
+    \small
+    \captionsetup{type=table}
+    \caption{Descriptive statistics of the dataset(A).}
+    \label{tab:data_profiling}
+    \setlength{\tabcolsep}{2.5pt}
+    \begin{tabular}{lccccc}
+        \toprule
+        \textbf{Variable} & \textbf{Mean} & \textbf{Med.} & \textbf{Std} & \textbf{O.1-3$\sigma$} & \textbf{O.$>3\sigma$} \\
+        \midrule
+        \texttt{char\_count} & 6518.1 & 3937.5 & 9389.0 & 6.0\% & 1.6\% \\
+        \texttt{ai\_mentions} & 2.05 & 1.0 & 2.83 & 7.4\% & 1.6\% \\
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+Given the LLM-intensive nature of this project, monitoring text length and keyword frequency is useful for managing computational costs and context window limits. Table~\ref{tab:data_profiling} summarizes metrics for the character count and AI-related mentions within the news descriptions.
+
+The character count shows a large amplitude and extreme skewness, which is explained by the presence of long-form articles. However, since this work is not strictly stochastic in nature, we found no need to exclude these outliers based on length. Although that decision can be made if on a computational budget.
+
+\paragraph{Dataset (B) - Customer Analysis}
+\par The dataset in study is the publicly available Customer Personality Analysis present in the following Kaggle \href{https://www.kaggle.com/datasets/imakash3011/customer-personality-analysis/data}{URL}.
+\par A brief analysis is presented below:
+\begin{itemize}
+    \item Dataset has 2240 rows and 28 columns including the class "Response".
+    \item 24 numeric variables and 3 symbolic and a binary class variable.
+    \item Variable \textbf{Income} contains 24 missing values.
+    \item Class distribution is 331 true and 1881 false observations
+\end{itemize}
+\par Prior to any clustering or outlier analysis the following data preparation steps were followed:
+\begin{enumerate}
+    \item Feature selection analysis through low variance. Variables identified for later removal during clustering and outlier analysis
+    \item Rows with missing values were dropped
+    \item Date column was dropped due to ot being relevant in this process
+    \item InterQuartile Range (IQR) and standard Deviation (stdev) outlier analysis identified that all the dataset's variables contain multiple observations that could be identified as outliers
+    \item Data was scaled according to the MinMax approach
+\end{enumerate}
+
+
+

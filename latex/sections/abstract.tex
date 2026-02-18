@@ -3,6 +3,12 @@
 % 
 % Use: summarize main findings concisely (follow the 10-page limit). Link to code/notebooks and indicate reproducibility steps.
 \section*{ABSTRACT}
-Major findings.
+
+This report presents a systematic exploration of unsupervised learning architectures applied to two distinct analytical domains: Portuguese media discourse regarding Artificial Intelligence (Dataset A) and Customer Personality segmentation (Dataset B).
+
+For Dataset (A), we implemented an advanced semantic pipeline utilizing transformer-based embeddings (\texttt{Qwen2.5}) and \texttt{UMAP} dimensionality reduction to construct a "semantic topography." This work introduces a robust three-step unsupervised outlier identification pipeline—addressing global, local, and structural anomalies—to isolate high-density narrative cores. Pattern discovery was further enhanced through zero-shot \texttt{LogProb} centrality scoring, allowing for a multi-dimensional "blueprint" analysis of thematic intensity. Parallelly, for Dataset (B), we conducted a comparative analysis of partitioning and hierarchical clustering, demonstrating that targeted feature selection significantly enhances cluster separation, increasing the Silhouette score from 0.16 to 0.40. Outlier detection benchmarking in Dataset (B) using Mahalanobis Distance, LOF, and Isolation Trees further identified specific niche behaviors while preserving dataset integrity.
+
+Comparative results show that while Dataset (A) benefits from high-dimensional topology for complex discourse discovery, Dataset (B) relies on rigorous feature engineering for distinct segmentation. Both domains validate that hybrid regimes, combining manifold learning with domain-specific pruning, yield more stable and interpretable categorical insights than baseline approaches.
 
 \vspace{0.6em}
+\noindent \textbf{Keywords:} Unsupervised Learning, LLMOps, Semantic Topography, Feature Selection, Clustering, AI News Analysis.

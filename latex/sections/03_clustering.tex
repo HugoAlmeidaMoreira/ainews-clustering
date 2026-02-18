@@ -8,23 +8,136 @@
 % 
 % Use: compare ≥2 algorithms, test multiple distances and k values, show intrinsic/extrinsic metrics and parameter-sweep plots, and include 2D visualizations with centers/medoids.
 \section{CLUSTERING}
+
+\paragraph{Dataset (A) - AI News Topography}
+\subsection{Density-Based Approach (HDBSCAN)}
+We applied \textbf{HDBSCAN} ($min\_cluster\_size=30$, $min\_samples=10$, EOM) to identify high-density semantic cores. However, applied to the 11,922 articles, this approach classified 5450 items as noise.
+
+This high rejection rate highlights the extreme volatility and rotation of the AI media narrative, where "AI" is frequently referenced in transient or disperse contexts that defy dense aggregation. Consequently, HDBSCAN was discarded as the primary segmentation tool in favor of K-Means to ensure a comprehensive structural mapping of the domain. The density-based results were retained solely for the outlier analysis discussed in Section~\ref{sec:outliers}.
+
+\begin{center}
+    \includegraphics[width=\columnwidth]{images/images-clustering/theseus-topography-hdbscan-no-outliers.png}
+    \captionof{figure}{Density-based clustering (HDBSCAN) revealing only the strongest semantic cores, excluding 45\% of the corpus as noise.}
+    \label{fig:hdbscan_pruned}
+\end{center}
+
+The visual comparison between the raw clustering with noise (Appendix~\ref{app:fig:hdbscan_noise}) and the pruned structure (Fig.~\ref{fig:hdbscan_pruned}) highlights the effectiveness of this pipeline in distilling the core narrative.
+
+\subsection{Structural Segmentation (K-Means)}
+After the initial density-based approach, we employed \textbf{K-Means} clustering with $K=15$.
+
+\begin{center}
+    \includegraphics[width=\columnwidth]{images/images-clustering/theseus-topography-kmeans-w-outliers.png}
+    \captionof{figure}{K-Means partitioning of the semantic topography. The final solution refined the initial 15-cluster sweep into 13 stable thematic regions.}
+    \label{fig:kmeans_topography}
+\end{center}
+
+Detailed visualizations of the initial regions identified are provided in Appendix~\ref{app:kmeans_regions_initial}.
+
+\subsection{Major Findings \normalfont(Knowledge Acquisition)}
+Analyzing the topology of these clusters proves to be an effective solution for mapping the semantic space of the Portuguese media ecosystem regarding Artificial Intelligence. This approach reveals a highly fragmented landscape, where core narratives (e.g., Institutional Regulation, Technical Enterprise Solutions) are surrounded by a vast periphery of transient or niche reports. 
+
+The hybrid strategy of using density-based methods for noise identification followed by K-Means for structural mapping proved essential. It allowed for the preservation of narrative clusters that are semantically distinct but not sufficiently dense for traditional density-based algorithms. Ultimately, the 15 identified regions provide a stable and interpretable framework for monitoring AI discourse and its diverse manifestations in Portuguese news.
+
+\paragraph{Dataset (B) - Customer Personality Analysis}
 \subsection{Reference clustering solutions}
-\dotfillplaceholder
+
+\par Clustering in dataset 2 was tested with the following approaches:
+\begin{itemize}
+    \item K-means clustering
+    \item Hierarchical clustering
+\end{itemize}
+\par As mentioned in Section \ref{sec:data_prof}, the dataset went through a feature selection process and both the scenarios were tested in the above mentioned approaches.
 
 \subsection{Visualization and description}
-\dotfillplaceholder
+    \begin{figure*}[t]
+      \centering
+      \caption{D2 | K-Means and Hierarchical cluster analysis}
+      \begin{subfigure}[b]{0.24\linewidth}
+        \includegraphics[width=\linewidth]{images/dataset2/Clustering/base/elbow_method.png}
+        \caption{Elbow method}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.24\linewidth}
+        \includegraphics[width=\linewidth]{images/dataset2/Clustering/base/silhouette_score.png}
+        \caption{Silhouette score}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.24\linewidth}
+        \includegraphics[width=\linewidth]{images/dataset2/Clustering/base/kmeans_clusters_pca.png}
+        \caption{K-Means cluster}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.24\linewidth}
+        \includegraphics[width=\linewidth]{images/dataset2/Clustering/base/hierarchical_clusters_pca.png}
+        \caption{Hierarchical cluster }
+      \end{subfigure}
+      \label{fig:d2_clusters}
+    \end{figure*}
+    
+\par Dataset 2 clustering related visualizations are presented in Figures \ref{fig:d2_clusters} and \ref{fig:d2_clusters_fselect}. In these figures, four scenarios are shown:
+\begin{enumerate}
+    \item Elbow method - Process used to identify k number of clusters through cohesion analysis.
+    \item Silhouette score - Process used to identify k number of clusters through silhouette analysis.
+    \item K-means cluster (k=3) visualization including medians and medoids.
+    \item Hierarchical cluster (k=3) visualization including medians and medoids.
+\end{enumerate}
+
+\begin{figure*}[t]
+  \centering
+  \caption{D2 | K-Means and Hierarchical cluster analysis - Post feature selection}
+  \begin{subfigure}[b]{0.24\linewidth}
+    \includegraphics[width=\linewidth]{images/dataset2/Clustering/fselection/elbow_method_fselection.png}
+    \caption{Elbow method}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.24\linewidth}
+    \includegraphics[width=\linewidth]{images/dataset2/Clustering/fselection/silhouette_method_fselection.png}
+    \caption{Silhouette score}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.24\linewidth}
+    \includegraphics[width=\linewidth]{images/dataset2/Clustering/fselection/kmeans_clusters_pca_fselection.png}
+    \caption{K-Means cluster}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.24\linewidth}
+    \includegraphics[width=\linewidth]{images/dataset2/Clustering/fselection/hierarchical_clusters_pca_fselection.png}
+    \caption{Hierarchical cluster}
+  \end{subfigure}
+  \label{fig:d2_clusters_fselect}
+\end{figure*}
 
 \subsection{Distances and methods}
-\dotfillplaceholder
+\subsubsection{D2 | Pre-feature selection dataset}
+\par \textbf{Elbow Method Analysis}: As seen in Figure \ref{fig:d2_clusters}a), Cohesion (or inertia) decreases sharply from k=1 to k=3.
+After k=3, the rate of decrease becomes less significant, forming an 'elbow' around k=3 and k=4.
+\par \textbf{Silhouette Score Analysis}: As seen in Figure \ref{fig:d2_clusters}b), the silhouette score is highest at k=2, and k=3, and then generally decreases or fluctuates at higher k values.
+\par Considering both methods, k=3 should be the choice for the optimal number of clusters.
+
+\subsubsection{D2 | Post-feature selection dataset}
+\par \textbf{Elbow Method Analysis}: As seen in Figure \ref{fig:d2_clusters_fselect}a), the cohesion decreases sharply from k=1 to k=2.
+After k=2, the rate of decrease becomes less significant, forming an 'elbow' around k=2 or k=3.
+\par \textbf{Silhouette Score Analysis}: As seen in Figure \ref{fig:d2_clusters_fselect}b), the silhouette score is highest at k=2 (approximately 0.39) and then it decreases for higher k values.
+\par Considering both methods, k=2 was selected as the optimal number of clusters for the feature-selected data given that the elbow plot shows a clear bend at k=2, and the silhouette score is highest at k=2.
 
 \subsection{Number of clusters}
-\dotfillplaceholder
+\par As discussed in the previous section, the number of clusters selected for dataset 2 was k=3 for the pre-feature selection data and k=2 for post-feature selection. 
 
 \subsection{Preprocessing impact}
-\dotfillplaceholder
+\par Results for dataset 2 approaches analysis can be found in the table below. It can be seen that the silhouette value has increased which suggests strong clustering and distinct separation between clusters.
+\par Moreover, in the case of the K-means its cohesion has reduced which suggests that points are close to their respective centroids, suggesting compact clusters.
+\par In conclusion, there was an overall improvement after preprocessing for both the K-means and Hierarchical approaches.
+
+\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    \hline
+    \textbf{Approach} & \textbf{Metric} & \textbf{Original} & \textbf{After} \\ \hline\hline
+    K-means & Silhouette & 0.160 & 0.397 \\ \hline
+    K-means & Cohesion & 1999.8 & 902.09 \\ \hline
+    Hierarchical & Silhouette & 0.139 & 0.397 \\ \hline
+    \end{tabular}
+    \label{table:clustering_analysis}
+\end{center}
 
 \subsection{Detailed assessment}
-\dotfillplaceholder
-
-\subsection{Major findings \normalfont(knowledge acquisition)}
-\dotfillplaceholder
+\par In dataset 2 scenario the following overall conclusions can be taken of the clustering analysis exercise:
+\par \textbf{For the K-Means clustering approach:} With the Original data the (k=3) clusters defined appeared somewhat overlapping and less distinct with Medians and Medoids' plot, as seen in the \ref{fig:d2_clusters}c).
+\par Figure \ref{fig:d2_clusters_fselect}c) which was developed from pre-processed data shows a reduction in clusters (k=2) with much clearer separation and distinct boundaries, indicating more compact and well-defined groups. 
+\par \textbf{For the Hierarchical clustering approach:} With the Original Data the (k=3) clusters in the Figure \ref{fig:d2_clusters}d) were not perfectly separated.
+\par Figure \ref{fig:d2_clusters_fselect}d) which was developed from pre-processed data shows a reduction in clusters (k=2) with better visual separation, aligning with the improved Silhouette Score.

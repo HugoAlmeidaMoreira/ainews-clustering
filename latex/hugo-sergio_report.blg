@@ -1,0 +1,17 @@
+[0] Config.pm:307> INFO - This is Biber 2.19
+[0] Config.pm:310> INFO - Logfile is 'hugo-sergio_report.blg'
+[62] biber:340> INFO - === Wed Feb 18, 2026, 22:23:02
+[73] Biber.pm:419> INFO - Reading 'hugo-sergio_report.bcf'
+[115] Biber.pm:976> INFO - Using all citekeys in bib section 0
+[124] Biber.pm:4419> INFO - Processing section 0
+[134] Biber.pm:4610> INFO - Looking for bibtex file 'clustering.bib' for section 0
+[136] bibtex.pm:1713> INFO - LaTeX decoding ...
+[146] bibtex.pm:1519> INFO - Found BibTeX data source 'clustering.bib'
+[239] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[239] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[239] Biber.pm:4239> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[239] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
+[253] bbl.pm:660> INFO - Writing 'hugo-sergio_report.bbl' with encoding 'UTF-8'
+[257] bbl.pm:763> INFO - Output to hugo-sergio_report.bbl
+[257] Biber.pm:131> WARN - ISBN '978-3-031-45467-7 978-3-031-45468-4' in entry 'bishopDeepLearningFoundations2024' is invalid - run biber with '--validate_datamodel' for details.
+[257] Biber.pm:133> INFO - WARNINGS: 1

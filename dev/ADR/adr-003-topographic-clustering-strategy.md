@@ -35,17 +35,17 @@ We need to distinguish between **Spatial Analysis** (where ideas sit in relation
 ---
 
 ## Decision
-We will implement a **Multi-Strategy Topographic Mapping** process to provide a comparative analysis (Evaluation Benchmarking) between two fundamental clustering philosophies:
+We will implement a **Hybrid Topographic Strategy** that combines density-based diagnostics with global partitioning to ensure a robust and comprehensive semantic mapping:
 
-1.  **Global Partitioning (Baseline: K-Means)**:
-    *   **Logic**: Divides the entire semantic space into exactly $K$ Voronoi cells.
-    *   **Goal**: Provide a "Total Coverage" map where every article belongs to a category.
-    *   **Eval Value**: Acts as a sanity check for cluster stability.
+1.  **Topological Noise Pruning (HDBSCAN)**:
+    *   **Logic**: Discovers "Islands" based on semantic density, identifying high-cohesion narrative cores.
+    *   **Goal**: Isolate semantic noise and outliers (mavericks, fragile bridges) that would otherwise degrade cluster stability.
+    *   **Output**: A "pruned" dataset and a clear diagnostic of semantic dispersion.
 
-2.  **Topological Density (Advanced: UMAP + HDBSCAN)**:
-    *   **Logic**: Discovers "Islands" based on information density, ignoring "Sea" (Noise).
-    *   **Goal**: Identify highly-coherent niche topics and discourse hubs.
-    *   **Eval Value**: Superior for discovering nuanced discourse dynamics that K-Means might blur.
+2.  **Structural Segmentation (K-Means)**:
+    *   **Logic**: Divides the semantic space into $K=15$ Voronoi cells.
+    *   **Goal**: Provide a "Total Coverage" map where every stable news item belongs to a well-defined region.
+    *   **Value**: Ensures comprehensive structural mapping of the media ecosystem.
 
 ### Technical Implementation
 
@@ -54,10 +54,10 @@ We will implement a **Multi-Strategy Topographic Mapping** process to provide a 
 *   **Strategy A (K-Means)**: Elbow method or Silhouette score to determine $K$.
 *   **Strategy B (HDBSCAN)**: Parameter tuning for `min_cluster_size` to define the "granularity" of the islands.
 
-#### 2. Semantic Painting (The Comparative Eval)
-Both models will be projected onto the **Slider Matrix** (the 7 semantic axes). We will compare:
-*   **Cluster Purity**: How well the Slider Centroid of a cluster represents its members.
-*   **Topographic Agreement**: Do both models agree on the core "Investment" or "Regulation" hubs?
+#### 2. Hybrid Workflow
+1.  **Noise Identification**: Run HDBSCAN on 5D UMAP latent space to tag outliers.
+2.  **Structural Mapping**: Apply K-Means ($K=15$) to the manifold, using HDBSCAN results to validate cluster boundaries and identify "blurred" regions.
+3.  **Semantic Painting**: Project the final K-Means regions onto the **Slider Matrix** (the 7 semantic axes) to extract DNA profiles.
 
 #### 3. LLM-Assisted Interpretation & Validation
 To bridge the gap between "Geometric Points" and "Human Meaning", we will use a Large Language Model (e.g., Qwen-72B-Instruct via vLLM) as a **Semantic Cartographer**:
@@ -105,27 +105,29 @@ graph TD
 
     DATA[("Postgres: ai_news<br/>(4096D Embeddings)")]:::secondary
 
-    subgraph "Dual Strategy Pipeline"
-        UMAP["UMAP Reduction<br/>(4096D -> 5D)"]:::primary
-        KMEANS["<b>Strategy A: K-Means</b><br/>Global Partitioning"]:::primary
-        HDBSCAN["<b>Strategy B: HDBSCAN</b><br/>Density-Based Islands"]:::primary
+    subgraph "Hybrid Topographic Pipeline"
+        UMAP["UMAP Reduction<br/>(4096D -> 5D/2D)"]:::primary
+        HDBSCAN["<b>HDBSCAN</b><br/>Noise/Outlier Diagnostics"]:::primary
+        KMEANS["<b>K-Means (K=15)</b><br/>Structural Segmentation"]:::primary
     end
 
     subgraph "Semantic Interpretation Layer"
-        PAINT["Semantic Painting<br/>(Slider Centroids)"]:::math
+        PAINT["Semantic DNA Extraction<br/>(Slider Centroids)"]:::math
         LLM["<b>vLLM (Qwen-72B)</b><br/>Semantic Cartographer"]:::llm
     end
 
     subgraph "Output: Semantic Atlas"
         ISL["Topographic Map<br/>(Visual Representation)"]:::result
-        LAB["Cluster Labels & Summaries<br/>(LLM-Generated)"]:::result
+        LAB["Island Labels & Summaries<br/>(LLM-Generated)"]:::result
     end
 
     DATA --> UMAP
-    UMAP --> KMEANS
     UMAP --> HDBSCAN
+    UMAP --> KMEANS
+    
     KMEANS --> PAINT
-    HDBSCAN --> PAINT
+    HDBSCAN -- "Outlier Filter" --> PAINT
+    
     PAINT --> LLM
     LLM --> ISL
     LLM --> LAB

@@ -5,11 +5,44 @@
 % 
 % Use: justify chosen representation, show experiments (PCA variance explained, AE reconstructions), and record preprocessing steps applied to reach the representation.
 \section{DATA REPRESENTATION}
-\subsection{Representations \normalfont(optional)}
-\dotfillplaceholder
 
-\subsection{Summarization capacity \normalfont(optional)}
-\dotfillplaceholder
+\paragraph{Dataset (A) - AI News Analysis}
+\subsection{Embedding Methodology}
+Textual data was processed for embedding using the \texttt{Qwen2.5-8B-Instruct} model, generating high-dimensional vectors ($D = 4096$) that capture both structural and semantic nuances. 
 
-\subsection{Transformations \normalfont(optional)}
-\dotfillplaceholder
+Vector generation was orchestrated via the \texttt{vLLM} inference engine, optimized for Blackwell architecture with FP16 batching.
+The resulting embeddings are persisted in a \texttt{PostgreSQL 16.x} instance equipped with the \texttt{pgvector} extension ($v0.7.0$).
+
+\subsection{Dimensionality Reduction}
+To mitigate the curse of dimensionality inherent to 4096-dimensional vectors and improve clustering density estimation, we employ \textbf{UMAP} (Uniform Manifold Approximation and Projection)~\cite{mcinnes2018umap}. The reduction is twofold:
+
+\begin{enumerate}
+    \item \textbf{Topological Projection ($D=5$)}: Vectors are reduced to 5 components to serve as the input space for density-based clustering (HDBSCAN). This dimension aligns with the intrinsic dimensionality of the dataset, estimated at $d \approx 4.11$ using the TwoNN algorithm~\cite{facco2017estimating}. This step counteract sparsity in high-dimensional space which degrades density estimation~\cite{mcinnes2018umap}, preserving local manifold structure while discarding noise.
+    \item \textbf{Visual Projection ($D=2$)}: A further reduction to 2 components is generated strictly for visualization purposes, creating a "semantic topography" of the news landscape (Fig.~\ref{fig:umap_topography}).
+\end{enumerate}
+
+\begin{center}
+    \includegraphics[width=\columnwidth]{images/images-clustering/theseus-topography-umap-base.png}
+    \captionof{figure}{Semantic topography of the dataset(A) using UMAP (D=2).}
+    \label{fig:umap_topography}
+\end{center}
+
+The UMAP manifold is constructed using the \textit{Cosine} metric with $n\_neighbors=15$ and $min\_dist=0.1$, ensuring that the angular relationships captured by the Qwen2.5 model are preserved in the lower-dimensional space.
+
+\subsection{Data Transformations: LogProb Centrality}
+To enrich the representation beyond raw embeddings, we apply a domain-guided transformation to assess the thematic centrality of each news item.
+
+The centrality scoring employs a zero-shot generative prompt-weighting technique using the \texttt{Qwen2.5-7B-Instruct} model. Each news item is evaluated against the target theme to produce a continuous metric $S \in [0, 1]$ leveraging the \textbf{logprobs} extraction methodology as described in \textit{``The Mean-Difference''}~\cite{wallace2024meandifference}.
+
+\begin{center}
+    \includegraphics[width=\columnwidth]{images/images-clustering/theseus-topography-semantic-centrality.png}
+    \captionof{figure}{Semantic topography overlaid with LogProb Centrality scores.}
+    \label{fig:logprob_centrality}
+\end{center}
+
+\noindent As illustrated in Fig.~\ref{fig:logprob_centrality}, the dataset exhibits a strong semantic centrality towards the theme "Artificial Intelligence". The majority of the news items cluster in the high-confidence region ($S > 0.7$), validating the effectiveness of the initial keyword-based filtering while providing a nuanced gradient of relevance for items on the conceptual periphery.
+
+This methodology was extended, but with \texttt{mesolitica/Qwen2.5-72B-Instruct-FP8} (because the scaling problem is more soft and needs a model with more semantic capacity), to map seven additional semantic dimensions of the news identity: \textit{Opportunity vs. Risk}, \textit{Regulatory Pressure}, \textit{Economic Momentum}, \textit{Ethics vs. Utility}, \textit{Technical Depth}, \textit{Geopolitical Scope}, and \textit{Urgency}. The integrated summary and complete distribution of these dimensions are available in Appendix~\ref{app:dna_summary} and \ref{app:dna_breakdown}.
+
+\paragraph{Dataset (B) - Customer Personality Analysis}
+\par \dotfillplaceholder

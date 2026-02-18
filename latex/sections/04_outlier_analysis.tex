@@ -11,17 +11,173 @@
 % 
 % Use: include ARM/biclustering details (support, lift, significance), describe numeric handling and imbalanced classes; for outliers, report scoring method, thresholds, feature relevance and optionally compare to supervised baseline.
 \section{OUTLIER/PATTERN ANALYSIS}
+\label{sec:outliers}
+
+\paragraph{Dataset (A) - AI News Topography}
+ To ensure the integrity of the semantic clusters and understand the peripheral boundaries of the news landscape, we implemented a three-step unsupervised multivariate outlier analysis.
+
+\subsection{Step 1: Global Outlier Detection}
+The initial stage identifies "global strays" --- news items positioned significantly far from the primary semantic body of the dataset. This is achieved by calculating the Euclidean distance of each article from the global centroid within the 2D UMAP projection \cite{mcinnes2020umapuniformmanifoldapproximation}. 
+
+Observations exceeding a threshold of \textbf{1.2$\sigma$ (Continental Radius)} are flagged as global outliers. This criterion successfully isolates \textbf{1282} objects, representing highly niche or semantically isolated news reports.
+
+\begin{center}
+    \includegraphics[width=\columnwidth]{images/images-clustering/theseus-topography-global-outliers.png}
+    \captionof{figure}{Global outlier detection showing items beyond the 1.2$\sigma$ continental radius.}
+    \label{fig:global_outliers}
+\end{center}
+
+\subsection{Step 2: Local Maverick Extraction}
+Following the global sweep, we performed a cluster-conditional analysis within each K-Means region. This step identifies "Mavericks" — articles that belong to a specific thematic cluster but are positioned as outliers relative to that cluster's local centroid.
+
+The methodology mirrors the global approach, calculating Euclidean distances within the local reference frame of each cluster but with a threshold of \textbf{1.8$\sigma$}. This localized pruning identified \textbf{944} mavericks that represent conceptual deviations within otherwise cohesive narratives.
+
+\begin{center}
+    \includegraphics[width=\columnwidth]{images/images-clustering/theseus-topography-local-outliers.png}
+    \captionof{figure}{Local outlier detection (Mavericks) using a 1.8$\sigma$ threshold within each cluster.}
+    \label{fig:local_outliers}
+\end{center}
+
+\subsection{Step 3: Graph-Based Structural Pruning}
+The final validation phase utilizes a graph-based connectivity analysis to isolate \textbf{structural outliers}. This technique, inspired by the SCAN algorithm~\cite{xu2007scan}, prunes news items that, despite passing local and global filters, lack sufficient proximity to the high-density cores of the K-Means clusters.
+
+By evaluating the reachability of each object within the semantic manifold, this step identifies artifacts that effectively function as "fragile bridges" or bridge-noise between narratives. This ensures that the final segmentation captures the most representative and stable clusters of the Portuguese media sphere.
+
+\begin{center}
+    \includegraphics[width=\columnwidth]{images/images-clustering/theseus-topography-structural-outliers.png}
+    \captionof{figure}{Structural outlier identification using graph-based reachability analysis.}
+    \label{fig:structural_outliers}
+\end{center}
+
+\subsection{Density-Based Semantic Noise (HDBSCAN)}
+We identified \textbf{Semantic Noise} using the non-aggregated objects from the HDBSCAN pipeline. This layer comprises approximately \textbf{5,450} items that defy dense structural grouping. This noise was not pruned to preserve the broader K-Means topology, but can be useful in some applications, for example reducing semantic redundancy.
+
+\begin{center}
+    \includegraphics[width=\columnwidth]{images/images-clustering/theseus-topography-semantic-noise.png}
+    \captionof{figure}{Distribution of Semantic Noise (non-aggregated objects) across the UMAP topography.}
+    \label{fig:semantic_noise}
+\end{center}
+
+\subsection{Final Assessment \& Impact}
+The three-step outlier pipeline described above successfully isolated \textbf{2565} unique objects from the corpus. While the individual steps (global, local, and structural) operate on different semantic scales, their juxtaposition ensures a multi-layered validation of the news domain's boundaries.
+
+\begin{center}
+    \includegraphics[width=\columnwidth]{images/images-clustering/theseus-topography-no-outliers.png}
+    \captionof{figure}{Final semantic topography after the integrated 3-step pruning and structural validation.}
+    \label{fig:final_no_outliers}
+\end{center}
+
+The final visual result of this integrated pruning is shown in Fig.~\ref{fig:final_no_outliers}. This process resulted in a significant improvement in the structural mapping (Fig.~\ref{fig:kmeans_no_outliers}), where the semantic clusters exhibit higher thematic cohesion and more distinct boundaries. 
+
+\begin{center}
+    \includegraphics[width=\columnwidth]{images/images-clustering/theseus-topography-kmeans-no-outliers.png}
+    \captionof{figure}{Impact of outlier removal on K-Means ($K=15$) stability and cluster definition.}
+    \label{fig:kmeans_no_outliers}
+\end{center}
+
+\noindent A detailed visualization of the refined semantic core regions is provided in Appendix~\ref{app:kmeans_regions_core}, representing the definitive structural mapping of the Portuguese AI news landscape.
+
+
+
+
+
+\paragraph{Dataset (B) - Customer Personality Analysis}
+
 \subsection{Reference pattern/outlier solutions}
 \dotfillplaceholder
+\par Outlier analysis in dataset 2 was tested with the following approaches:
+\begin{itemize}
+    \item Mahalanobis Distance - Detects global outliers. It measures how far a point is from the mean of the entire distribution (or a cluster's mean, if applied per cluster), taking into account the covariance structure of the data. Outliers are points that deviate significantly from the central tendency of the overall dataset. It assumes a multivariate Gaussian distribution for effective detection.
+    \item Local Outlier Factor (LOF) - This method detects local outliers. It quantifies the degree of isolation of a data point with respect to its neighbors. A point is considered an outlier if its local density is significantly lower than that of its neighbors.
+    \item Isolation Tree -  It works on the principle that anomalies are few and different and therefore easier to isolate than normal data points. The algorithm builds a number of isolation trees. Given their difference, outliers typically require fewer random partitions to be isolated.
+\end{itemize}
+\par As mentioned in Section \ref{sec:data_prof}, the dataset went through a feature selection process and both the scenarios were tested in the above mentioned approaches.
 
 \subsection{Preprocessing impact}
 \dotfillplaceholder
+\par Same preprocessing was applied as in the previous section.
 
 \subsection{Class-conditional outliers/patterns \normalfont(optional)}
 \dotfillplaceholder
+\par See Figures \ref{fig:d2outliersmethods} and \ref{fig:d2outliersmethods_pre}. Insights obtained from these results can be seen in the next sections.
+\begin{figure*}[t]
+    \centering
+    \caption{D2 | Outliers Methods comparison - Income/Mntwines}
+      \begin{subfigure}[b]{0.3\linewidth}
+        \includegraphics[width=\linewidth]{images/dataset2/Outlier/base/mahalanobis_outliers_income_mntwines.png}
+        \caption{Mahalanobis distance}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.3\linewidth}
+        \includegraphics[width=\linewidth]{images/dataset2/Outlier/base/lof_outliers_income_mntwines.png}
+        \caption{Local Outlier Factor}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.3\linewidth}
+        \includegraphics[width=\linewidth]{images/dataset2/Outlier/base/ensemble_outliers_income_mntwines.png}
+        \caption{Isolation forest plus Mahalanobis and LOF}
+      \end{subfigure}
+    \label{fig:d2outliersmethods}
+\end{figure*}
+
+\begin{figure*}[t]
+    \centering
+    \caption{D2 | Outliers Methods comparison after preprocessing  - Income/Mntwines}
+      \begin{subfigure}[b]{0.3\linewidth}
+        \includegraphics[width=\linewidth]{images/dataset2/Outlier/fselection/mahalanobis_outliers_income_mntwines_fs.png}
+        \caption{Mahalanobis distance}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.3\linewidth}
+        \includegraphics[width=\linewidth]{images/dataset2/Outlier/fselection/lof_outliers_income_mntwines_fs.png}
+        \caption{Local Outlier Factor}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.3\linewidth}
+        \includegraphics[width=\linewidth]{images/dataset2/Outlier/fselection/ensemble_outliers_income_mntwines_fs.png}
+        \caption{Isolation forest plus Mahalanobis and LOF}
+      \end{subfigure}
+      \label{fig:d2outliersmethods_pre}
+\end{figure*}
 
 \subsection{Detailed assessment}
 \dotfillplaceholder
+\par As seen in Figures \ref{fig:d2outliersmethods} and \ref{fig:d2outliersmethods_pre} the tree methods in study have severe differences in terms of results.
+\par In Figure \ref{fig:d2outliersmethods}a) and \ref{fig:d2outliersmethods_pre}a) when using the distance method only the most distant scenario is identified as an outlier (and only in the preprocessed data). This is aligned with the definition of the method which states that this approach is good for global outliers.
+\par In Figure \ref{fig:d2outliersmethods}b) and \ref{fig:d2outliersmethods_pre}b) the LOF method improves upon the distance method by finding outliers closer to the majority of observations. Of particular interest are the few outliers detected inside the green cluster of observations which were reduced in the preprocessed data.
+\par In Figure \ref{fig:d2outliersmethods}c) and \ref{fig:d2outliersmethods_pre}c) the Isolation forest was used and its results were added to the previous two methods. This approach has identified a large number of outliers when comparing to the previous two methods. While this is an advantage it is unclear if all of the outliers detected are valid results.
+
 
 \subsection{Major findings \normalfont(knowledge acquisition)}
+\par In dataset 2 the ensembled approach of joining the three methods together can be a way of identifying further amounts of outliers, however, the fact that the LOF and distance methods are more conservative in this scenario can also be an advantage.
+\par Given that for this dataset the looks mostly clean the goal will be mostly to remove  exceptional data points and understand niche segments meaning that the few Mahalanobis and LOF outliers should be the ones to be used. The isolation forest approach is better for a high-level cleanup of data which is not the present scenario.
 \dotfillplaceholder
+
+\section{PATTERN DISCOVERY}
+\label{sec:patterns}
+
+\paragraph{Dataset (A) - AI News Topography}
+In this phase, we transition from anomaly detection to the identification of latent semantic patterns within the media ecosystem. Our approach leverages zero-shot \textbf{LogProb} scores obtained from the transformer-based representation layer to "paint" the semantic manifold, revealing the thematic intensity and categorical distribution of narratives.
+
+\subsection{Thematic Centrality Patterns}
+The \textbf{Semantic Centrality} score serves as a proxy for thematic density. By projecting these LogProb weights onto the topography (Fig.~\ref{fig:patterns_centrality}), we identify the "gravitational centers" of the Portuguese AI discourse. 
+
+Areas of high centrality coincide with stabilized narratives where "Artificial Intelligence" is the primary subject, while the periphery reflects a more incidental or transient usage of the term.
+
+\begin{center}
+    \includegraphics[width=\columnwidth]{images/images-clustering/theseus-topography-centrality.png}
+    \captionof{figure}{Topographic distribution of Semantic Centrality, highlighting the core thematic intensity.}
+    \label{fig:patterns_centrality}
+\end{center}
+
+\subsection{Semantic Identity (Blueprint) Analysis}
+To further express the narrative structure, we used the semantic "Blueprint" previously presented in data representations section. This blueprint of the corpus across seven critical dimensions: \textit{Economic Momentum}, \textit{Ethics vs. Utility}, \textit{Regulatory Pressure}, \textit{Opportunity vs. Risk}, \textit{Geopolitical Scope}, \textit{Technical Depth}, and \textit{Urgency}.
+
+Our analysis focuses on the \textbf{semantic extremes} — objects scoring below \textbf{0.25} or above \textbf{0.75} for each dimension. This filtering reveals the most polarized and conceptually pure instances of each trait, mapping the ideological boundaries of the conversation. A detailed gallery of all dimensions and the integrated blueprint summary is provided in Appendix~\ref{app:dna_summary}.
+
+\begin{center}
+    \includegraphics[width=\columnwidth]{images/images-clustering/DNA-economic-momentum-2026-02-18.png}
+    \captionof{figure}{Example of a polarized Blueprint dimension: Economic Momentum distribution ($<0.25$ and $>0.75$).}
+    \label{fig:patterns_blueprint_example}
+\end{center}
+
+\section{MAJOR FINDINGS \& CONCLUSIONS}
+The integration of advanced clustering techniques with LLMOps methodologies has shown significant potential for the systematic preparation and deep analysis of large-scale textual corpora. 
+
+Our findings indicate that a \textbf{three-step unsupervised outlier identification pipeline} — targeting semantic anomalies at global, local, and structural levels — is a highly effective and robust mechanism for pruning noise and isolating stable narrative cores. Furthermore, the use of \textbf{LogProb-based pattern identification} revealed to be useful for topological painting of the semantic manifold. This approach allowed a clear "semantic blueprint" that defines the conceptual character and ideological boundaries of each identified region within the media ecosystem that can be used in diverse applications.

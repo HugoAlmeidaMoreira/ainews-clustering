@@ -51,7 +51,7 @@ graph TD
     classDef storage fill:#d97706,stroke:#fcd34d,color:#fff
 
     subgraph "HW-LOCAL (WSL2 Orchestrator)"
-        LOCAL["Dev Agent<br/>(Ryzen / 13GB RAM)"]:::control
+        LOCAL["Dev Agent<br/>(Ryzen / 32GB RAM)"]:::control
         SCRIPT["Python Script<br/>(Ray Client)"]:::control
     end
 
